@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Frontier capabilities gap — Sep 2026</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --line: #2a2f3a;
+    --text: #e8eaed;
+    --muted: #9aa3b2;
+    --accent: #7dd3fc;
+    --grok: #a78bfa;
+    --openai: #34d399;
+    --claude: #fbbf24;
+    --gemini: #60a5fa;
+    --warn: #fb923c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 20px 64px;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.45;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 28px; font-size: 0.95rem; }
+  .note {
+    background: #1f1810; border: 1px solid #5b3d1a; color: #ffd8a8;
+    padding: 12px 14px; border-radius: 10px; margin-bottom: 24px; font-size: 0.9rem;
+  }
+  h2 { font-size: 1.1rem; margin: 28px 0 12px; color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; text-align: left; }
+  th { background: #151820; color: var(--muted); font-weight: 600; }
+  tr:nth-child(even) td { background: #161922; }
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px;
+    font-size: 0.75rem; font-weight: 600; margin-right: 6px;
+  }
+  .p-grok { background: #2a2140; color: var(--grok); }
+  .p-openai { background: #123028; color: var(--openai); }
+  .p-claude { background: #33280f; color: var(--claude); }
+  .p-gemini { background: #0f2740; color: var(--gemini); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+  }
+  .card h3 { margin: 0 0 4px; font-size: 1rem; }
+  .meta { color: var(--muted); font-size: 0.8rem; margin-bottom: 10px; }
+  .bar-wrap { margin: 8px 0; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+  .bar { height: 8px; background: #10131a; border-radius: 99px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 99px; }
+  .f-r { background: linear-gradient(90deg, #38bdf8, #a78bfa); }
+  .f-n { background: linear-gradient(90deg, #64748b, #94a3b8); }
+  ul { margin: 6px 0 0; padding-left: 18px; }
+  li { margin: 3px 0; }
+  .est { color: var(--warn); font-size: 0.78rem; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Frontier capabilities gap</h1>
+  <p class="sub">Latest flagships as of Sep 21, 2026 (PT). Preference &amp; independent indices cited; vendor tables treated as claims.</p>
+
+  <div class="note">
+    <strong>On the % columns:</strong> There is no public cross-lab study that measures “% of model capability unlocked.”
+    Researcher / everyday-user % below are <em>Katie estimates</em> (how much of that model’s practical ceiling a typical user in each group can actually reach via access + habits), anchored on access tiers and Anthropic’s Claude Code study (novice verified success ~15% vs expert ~28–33%). Not measured facts.
+  </div>
+
+  <h2>At a glance</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Lab / model</th>
+        <th>Where it leads</th>
+        <th>Where it lags</th>
+        <th>Researcher unlock <span class="est">est.</span></th>
+        <th>Everyday unlock <span class="est">est.</span></th>
+        <th>People actually using it?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pill p-grok">xAI</span><br><strong>Grok 4.6</strong><br><span style="color:#9aa3b2">Aug 12, 2026 · 500k ctx</span></td>
+        <td>X grounding, agent/coding pricing ($2/$6), Harvey LAB claim vs peers (vendor)</td>
+        <td>LMArena Text #63 (Elo 1456); smaller context; CU less documented</td>
+        <td><strong>60–75%</strong></td>
+        <td><strong>30–45%</strong></td>
+        <td>~117M MAU used Grok AI features (Mar 31, 2026, SpaceX S-1); Arena votes modest (~15.5k)</td>
+      </tr>
+      <tr>
+        <td><span class="pill p-openai">OpenAI</span><br><strong>GPT-6 Astra</strong><br><span style="color:#9aa3b2">Sep 3, 2026 · 1.05M ctx</span></td>
+        <td>AA Intelligence/Coding ties Fable; claimed CU/cyber/science SOTA; Codex</td>
+        <td>Arena early (#24, few votes); $10/$50; heavy safety stops</td>
+        <td><strong>70–85%</strong></td>
+        <td><strong>25–40%</strong></td>
+        <td>ChatGPT &gt;900M WAU / app ~1B MAU (2026); Astra itself still early on Arena</td>
+      </tr>
+      <tr>
+        <td><span class="pill p-claude">Anthropic</span><br><strong>Claude Opus 5</strong><br><span style="color:#9aa3b2">Jul 24, 2026 · 1M ctx</span><br>+ Fable 5.1 ceiling</td>
+        <td>Human preference (Fable #1 Arena); Claude Code / Cowork; chat quality</td>
+        <td>Behind Astra on some AA agent/cyber claims; Fable is extra tier/cost</td>
+        <td><strong>65–80%</strong> (Fable + Code: <strong>75–90%</strong>)</td>
+        <td><strong>35–50%</strong></td>
+        <td>Claude app ~56M MAU (Sensor Tower / Reuters mid-2026); huge Arena vote volume</td>
+      </tr>
+      <tr>
+        <td><span class="pill p-gemini">Google</span><br><strong>Gemini 3.8 Flash</strong><br><span style="color:#9aa3b2">Sep 2, 2026 · 1M ctx</span></td>
+        <td>$/perf, native multimodal + Live voice/video, Search/Workspace distribution; Arena #9</td>
+        <td>Computer use still Preview; max out 64k; weaker on some agent benches (vendor)</td>
+        <td><strong>55–70%</strong></td>
+        <td><strong>45–60%</strong></td>
+        <td>Gemini app &gt;1B MAU (Google Aug 2026); 63% use voice — mainstream multimodal</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>What the newest models can do as a whole</h2>
+  <div class="grid">
+    <div class="card"><h3>Shared ceiling</h3>
+      <ul>
+        <li>Selectable reasoning effort</li>
+        <li>Tools: functions, code exec, search</li>
+        <li>Vision + long context (500k–1M+)</li>
+        <li>Agentic coding loops</li>
+        <li>Chat + API surfaces</li>
+        <li>Computer/browser use (varying maturity)</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Real gaps that still matter</h3>
+      <ul>
+        <li><strong>Preference:</strong> Anthropic (± Gemini Flash) &gt; Astra early &gt; Grok 4.6</li>
+        <li><strong>Independent AA:</strong> Astra ≈ Fable; cost/task favors Astra</li>
+        <li><strong>Computer use:</strong> OpenAI claims lead; Claude strong; Gemini Preview</li>
+        <li><strong>Price:</strong> Gemini Flash / Grok cheap; Astra &amp; Fable expensive</li>
+        <li><strong>Distribution:</strong> ChatGPT + Gemini apps at ~1B; Claude &amp; Grok smaller</li>
+      </ul>
+    </div>
+    <div class="card"><h3>Are people using advanced features?</h3>
+      <ul>
+        <li>Most volume is still basic chat (+ voice on Gemini)</li>
+        <li>Claude Code: users plan ~70%, model executes ~80%</li>
+        <li>Experts ~2× verified success vs novices (15% → 28–33%)</li>
+        <li>Gemini: voice in 63% of app use; Live camera/screen in 1/5 Live sessions</li>
+        <li>No apples-to-apples “unlock %” across all four labs</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Per model — researcher vs everyday</h2>
+  <div class="grid">
+    <div class="card">
+      <h3><span class="pill p-grok">Grok 4.6</span></h3>
+      <div class="meta">Researchers do differently: reasoning effort, Grok Build / Cursor, X+web search, prompt cache, US regional endpoint</div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Researcher unlock</span><span>60–75% est.</span></div>
+        <div class="bar"><div class="fill f-r" style="width:68%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Everyday unlock</span><span>30–45% est.</span></div>
+        <div class="bar"><div class="fill f-n" style="width:38%"></div></div>
+      </div>
+      <ul>
+        <li>Everyday: grok.com / X / apps — chat, search, voice; less CU literacy</li>
+        <li>Gap driver: agent harness + high effort vs casual X chat</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="pill p-openai">GPT-6 Astra</span></h3>
+      <div class="meta">Researchers do differently: computer use, Codex, effort through max, Daybreak (cyber), Azure/Bedrock, Sites/Work</div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Researcher unlock</span><span>70–85% est.</span></div>
+        <div class="bar"><div class="fill f-r" style="width:78%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Everyday unlock</span><span>25–40% est.</span></div>
+        <div class="bar"><div class="fill f-n" style="width:32%"></div></div>
+      </div>
+      <ul>
+        <li>Everyday: ChatGPT paid chat/voice; Free often not on Astra</li>
+        <li>Gap driver: biggest — API/agent + CU vs plain chat; safety gates</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="pill p-claude">Claude Opus 5</span> (+ Fable)</h3>
+      <div class="meta">Researchers do differently: Claude Code, Cowork, computer use, Batches, escalate to Fable 5.1, CVP for cyber</div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Researcher unlock</span><span>65–80% (→90% w/ Fable)</span></div>
+        <div class="bar"><div class="fill f-r" style="width:72%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Everyday unlock</span><span>35–50% est.</span></div>
+        <div class="bar"><div class="fill f-n" style="width:42%"></div></div>
+      </div>
+      <ul>
+        <li>Everyday: Free/Pro often on Sonnet 5; Projects/artifacts</li>
+        <li>Best hard evidence for skill gap (Claude Code expertise study)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="pill p-gemini">Gemini 3.8 Flash</span></h3>
+      <div class="meta">Researchers do differently: Antigravity agents, grounding (Search/Maps), Batch/Flex, Vertex, Live Extended Thinking, Fairwind cyber</div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Researcher unlock</span><span>55–70% est.</span></div>
+        <div class="bar"><div class="fill f-r" style="width:62%"></div></div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-label"><span>Everyday unlock</span><span>45–60% est.</span></div>
+        <div class="bar"><div class="fill f-n" style="width:52%"></div></div>
+      </div>
+      <ul>
+        <li>Everyday: app + Search AI Mode + Workspace — multimodal is mainstream</li>
+        <li>Narrowest researcher↔normie gap (distribution + voice/camera defaults)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>How to read the estimates</h2>
+  <table>
+    <thead><tr><th>Factor</th><th>Pushes unlock up</th><th>Pushes unlock down</th></tr></thead>
+    <tbody>
+      <tr><td>Access tier</td><td>API / Max / Pro / agent CLI</td><td>Free chat, older default model</td></tr>
+      <tr><td>Harness</td><td>Codex, Claude Code, Antigravity, Grok Build, CU</td><td>Single-turn chat</td></tr>
+      <tr><td>Operator skill</td><td>Domain expertise, verify loops (Anthropic: experts ~2× success)</td><td>One-shot prompts</td></tr>
+      <tr><td>Gates</td><td>Daybreak / Fairwind / CVP when eligible</td><td>Default safety refusals on cyber/agent tasks</td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Primary sources: x.ai/news/grok-4-6 · openai.com/index/gpt-6-astra · anthropic.com/research/claude-opus-5 · blog.google Gemini 3.8 Flash · arena.ai/leaderboard/text (Sep 13, 2026) · artificialanalysis.ai Astra article (Sep 9, 2026) · OpenAI scaling post · Google Gemini 1B MAU · Reuters/Sensor Tower · SpaceX S-1 · anthropic.com/research/claude-code-expertise
+  </footer>
+</div>
+</body>
+</html>
