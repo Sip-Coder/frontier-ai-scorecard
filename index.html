@@ -96,13 +96,14 @@ td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{bord
 </section>
 
 <section class="grid">
-  <div class="card s6"><h2>Human preference · LMArena Text</h2><div class="cv"><canvas id="arena"></canvas></div><p class="cap">Elo, Oct 8. Argon &amp; 3.8 Flash preliminary.</p></div>
-  <div class="card s6"><h2>Independent intelligence &amp; coding</h2><div class="cv"><canvas id="aa"></canvas></div><p class="cap">Artificial Analysis Intelligence Index vs Coding Agent Index (%).</p></div>
-  <div class="card s6"><h2>Price vs intelligence</h2><div class="cv"><canvas id="price"></canvas></div><p class="cap">Output $ per 1M tokens (log). Up‑left = better value.</p></div>
-  <div class="card s6"><h2>Who's actually using it</h2><div class="cv"><canvas id="usage"></canvas></div><p class="cap">App users, millions. Solid = weekly, hatched = monthly — not directly comparable.</p></div>
-  <div class="card s8"><h2>Researcher vs everyday unlock <span class="badge">Estimate</span></h2><div class="cv"><canvas id="unlock"></canvas></div><p class="cap">Share of each model's practical ceiling reached. Google = 3.8 Flash.</p></div>
-  <div class="card s4"><h2>The effort gap</h2><div class="cv"><canvas id="effort"></canvas></div><p class="cap">Coding Agent % at default vs max effort.</p></div>
-  <div class="card s12"><h2>Context window</h2><div class="cv sm"><canvas id="ctx"></canvas></div><p class="cap">Tokens. Gemini context not stated in sources (Argon: 1M output).</p></div>
+  <div class="card s6"><h2 data-info="arena">Human preference · LMArena Text</h2><div class="cv"><canvas id="arena"></canvas></div><p class="cap">Elo, Oct 8. Argon &amp; 3.8 Flash preliminary.</p></div>
+  <div class="card s6"><h2 data-info="aa">Independent intelligence &amp; coding</h2><div class="cv"><canvas id="aa"></canvas></div><p class="cap">Artificial Analysis Intelligence Index vs Coding Agent Index (%).</p></div>
+  <div class="card s6"><h2 data-info="price">Price vs intelligence</h2><div class="cv"><canvas id="price"></canvas></div><p class="cap">Output $ per 1M tokens (log). Up‑left = better value.</p></div>
+  <div class="card s6"><h2 data-info="usage">Who's actually using it</h2><div class="cv"><canvas id="usage"></canvas></div><p class="cap">App users, millions. Solid = weekly, hatched = monthly — not directly comparable.</p></div>
+  <div class="card s8"><h2 data-info="unlock">Researcher vs everyday unlock <span class="badge">Estimate</span></h2><div class="cv"><canvas id="unlock"></canvas></div><p class="cap">Share of each model's practical ceiling reached. Google = 3.8 Flash.</p></div>
+  <div class="card s12"><h2 data-info="overhang"><span>Capability overhang</span> <span class="badge">Estimates</span></h2><div class="cv"><canvas id="overhang"></canvas></div><p class="cap">Top 6 by AA Intelligence (tie → better LMArena rank). Bar = model ceiling; fills = what users reach.</p></div>
+  <div class="card s4"><h2 data-info="effort">The effort gap</h2><div class="cv"><canvas id="effort"></canvas></div><p class="cap">Coding Agent % at default vs max effort.</p></div>
+  <div class="card s12"><h2 data-info="ctx">Context window</h2><div class="cv sm"><canvas id="ctx"></canvas></div><p class="cap">Tokens. Gemini context not stated in sources (Argon: 1M output).</p></div>
 </section>
 
 <div class="legend">
@@ -111,7 +112,7 @@ td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{bord
 </div>
 
 <section class="aidb">
-<h2>🎙 AI Daily Brief take <span>NLW’s podcast · from published transcripts</span></h2>
+<h2 data-info="aidb">🎙 AI Daily Brief take <span>NLW’s podcast · from published transcripts</span></h2>
 <div class="labs">
   <div class="lab" style="--c:var(--grok)"><div class="co"><span class="chip">x</span>xAI</div><div class="m">Grok 4.7</div><ul><li>Benchmarks say cheap coding workhorse; early users say slower, pricier</li><li>Shows how hard the middle ground is between frontier and ultra‑cheap</li><li>Verdict: wait a few days, judge it inside GrokBot</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-09-22">Agent Wars!</a> · Sep 22</div></div>
   <div class="lab" style="--c:var(--openai)"><div class="co"><span class="chip">O</span>OpenAI</div><div class="m">GPT‑6.1 Sol</div><ul><li>6 Sol/Luna launch: “all about cost and efficiency”</li><li>6.1 Sol lands near Astra at a fraction of the price</li><li>First reactions split; NLW wants hands‑on time first</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-09-23">Opus 5.5 vs GPT‑6 Sol and Luna</a> · Sep 23<br><a href="https://aidailybrief.ai/e/2026-09-30">OpenAI DevDay tools</a> · Sep 30</div></div>
@@ -124,20 +125,20 @@ td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{bord
 <div class="lh"><h1 style="font-size:1.6rem">Full landscape</h1><div class="ed">Every lab, open‑weight model and coding harness · LMArena Oct 8 · Artificial Analysis Oct 12</div></div>
 <div class="gchips" id="gchips"></div>
 <section class="grid">
-  <div class="card s12"><h2>Human preference · every lab's best <span class="ed" style="margin:0">LMArena Elo</span></h2><div class="cv" style="height:620px"><canvas id="lArena"></canvas></div><p class="cap">Best‑ranked current model per company. * preliminary. Labels = overall rank of 414.</p></div>
-  <div class="card s6"><h2>Intelligence · every lab's best</h2><div class="cv" style="height:560px"><canvas id="lAA"></canvas></div><p class="cap">Artificial Analysis Intelligence Index. * = AA partial estimate.</p></div>
-  <div class="card s6"><h2>Open vs closed gap</h2><div class="cv" style="height:250px"><canvas id="lGap"></canvas></div>
+  <div class="card s12"><h2 data-info="lArena">Human preference · every lab's best <span class="ed" style="margin:0">LMArena Elo</span></h2><div class="cv" style="height:620px"><canvas id="lArena"></canvas></div><p class="cap">Best‑ranked current model per company. * preliminary. Labels = overall rank of 414.</p></div>
+  <div class="card s6"><h2 data-info="lAA">Intelligence · every lab's best</h2><div class="cv" style="height:560px"><canvas id="lAA"></canvas></div><p class="cap">Artificial Analysis Intelligence Index. * = AA partial estimate.</p></div>
+  <div class="card s6"><h2 data-info="lGap">Open vs closed gap</h2><div class="cv" style="height:250px"><canvas id="lGap"></canvas></div>
    <div class="gapnums"><div><b>‑19</b><span>Elo · Kimi K3 vs Opus 5.5</span></div><div><b>‑12</b><span>AA pts · MiMo‑V2.6‑Pro vs Opus 5.5</span></div></div>
    <p class="cap">Best open‑weight vs best closed, today. All 3 top open models are Chinese.</p>
-   <h2 style="margin-top:14px">Price vs intelligence · all</h2><div class="cv" style="height:300px"><canvas id="lPrice"></canvas></div><p class="cap">Output $/1M (log). Up‑left = better value.</p></div>
-  <div class="card s12"><h2>Capability matrix <span class="ed" style="margin:0">tap a header to sort</span></h2>
+   <h2 data-info="lPrice" style="margin-top:14px">Price vs intelligence · all</h2><div class="cv" style="height:300px"><canvas id="lPrice"></canvas></div><p class="cap">Output $/1M (log). Up‑left = better value.</p></div>
+  <div class="card s12"><h2 data-info="table">Capability matrix <span class="ed" style="margin:0">tap a header to sort</span></h2>
    <div class="tbar" id="tfilter"></div>
    <div class="tw"><table id="tbl"><thead><tr><th data-k="co">Company</th><th data-k="m">Latest model</th><th data-k="rel">Released</th><th data-k="open">Weights</th><th data-k="cty">Country</th><th data-k="elo">Arena Elo</th><th data-k="aa">AA Intel.</th><th data-k="code">Coding Agent</th><th data-k="out">$ in/out</th><th data-k="ctx">Context</th><th data-k="st">Status</th></tr></thead><tbody></tbody></table></div>
    <p class="cap">Colour = relative strength (green better). Coding Agent = AA Coding Agent Index, only published for the big four. — = no public number.</p></div>
 </section>
-<h2 class="sh">Harnesses &amp; coding agents <span>built on others' models · own model where they have one</span></h2>
+<h2 data-info="harness" class="sh">Harnesses &amp; coding agents <span>built on others' models · own model where they have one</span></h2>
 <div class="hgrid" id="hgrid"></div>
-<div class="card" style="margin-top:14px"><h2>Who runs on whose model</h2><div class="tw"><table id="mx" class="mx"></table></div><p class="cap">● primary / own · ○ supported or routed. From vendor docs and reporting; Bolt and v0 stacks not officially disclosed.</p></div>
+<div class="card" style="margin-top:14px"><h2 data-info="mx">Who runs on whose model</h2><div class="tw"><table id="mx" class="mx"></table></div><p class="cap">● primary / own · ○ supported or routed. From vendor docs and reporting; Bolt and v0 stacks not officially disclosed.</p></div>
 </section>
 
 <details>
@@ -151,6 +152,7 @@ td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{bord
 <li>Full landscape (Oct 12): one row per company's latest/best model. Arena = LMArena Text Oct 8; AA = Artificial Analysis Intelligence Index Oct 12 (best effort setting). * = AA partial estimate. Kimi K3 &amp; Hy3 counted open‑weight per AA/licence. Mistral Large 4 is a proprietary preview. Microsoft MAI‑Thinking‑1, ByteDance Seed, Baidu ERNIE AA, Perplexity Sonar and SSI have no public text‑leaderboard score. Microsoft's strongest public ranks are in images (MAI‑Image‑2.6 #2 text‑to‑image Arena, vendor‑reported).</li>
 <li>SSI: no model, paper or API as of Oct 2026; $32B valuation (Apr 2025 round) and ~$5B Nvidia investment (Jul 27, Bloomberg‑reported size). Rumoured August model did not ship. Thinking Machines: Inkling (975B/41B active, open weights, Jul 15) + Tinker fine‑tuning platform. Perplexity retired Sonar Chat Completions Sep 27; Agent API routes to OpenAI, Anthropic, Google, xAI, Z.AI, Moonshot, NVIDIA plus Sonar. ARR &gt;$450M (Mar, FT via secondary tracker).</li>
 <li>Harness figures are mixed quality: official = Claude Code &gt;$2.5B run‑rate (Feb 12), Codex 5M+ weekly (Jun 2). Secondhand/estimates = Cursor ~$4B (Jun), Cognition ~$1B (Sep), Replit ~$525M (Apr), v0 6M+ users, OpenClaw 3.2M MAU (SimilarWeb est.). Claude Code ~$15B “tracked ARR” is a third‑party estimate, not shown. Lovable &gt;$600M ARR via TechCrunch. Bolt $40M is Mar 2025, no newer figure. Lovable/Bolt model stacks are third‑party reporting. Hermes = Nous Research’s Hermes Agent (open source) + Hermes 4 models.</li>
+<li>Capability overhang: ceiling = AA Intelligence; reach = ceiling × midpoint of unlock estimate. Argon has no public access (reach 0). Meta Muse Spark (60–75/35–50: Meta AI app, limited dev harness) and MiMo (65–80/15–30: open weights + cheap API, little consumer surface) are derived estimates. MiMo beats Grok 4.7 (both 46) on LMArena rank.</li>
 <li>Vendor benchmark tables treated as claims; LMArena and Artificial Analysis are independent.</li>
 </ul>
 <p>Sources (accessed Oct 10, 2026):
@@ -220,6 +222,22 @@ new Chart(unlock,{type:'bar',data:{labels:[['Grok 4.7'],['OpenAI','6.1 Sol'],['A
  plugins:[{id:'rl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 10px Inter,system-ui';c.fillStyle='#eef0f4';c.textBaseline='middle';
   ch.data.datasets.forEach((d,i)=>ch.getDatasetMeta(i).data.forEach((e,j)=>{const r=d.data[j];const lo=Math.min(e.x,e.base),hi=Math.max(e.x,e.base);if(i===0){c.textAlign='right';c.fillText(r[0]+'–'+r[1],lo-6,e.y);}else{c.textAlign='left';c.fillText(r[0]+'–'+r[1],hi+6,e.y);}}));c.restore();}}]});
 
+
+// 5b capability overhang
+(function(){const O=[['Claude Opus 5.5',58,[70,85],[35,50],C.a],['GPT‑6 Astra',53,[70,85],[30,45],C.o],['Gemini 4 Argon',53,[0,0],[0,0],C.g],['GPT‑6.1 Sol',52,[70,85],[30,45],C.o],['Meta Muse Spark 1.3',48,[60,75],[35,50],'#fb7185'],['Xiaomi MiMo‑V2.6',46,[65,80],[15,30],'#ef4444']];
+const mid=a=>(a[0]+a[1])/200,r1=v=>Math.round(v*10)/10;
+const R=O.map(o=>r1(o[1]*mid(o[2]))),E=O.map(o=>r1(o[1]*mid(o[3])));
+new Chart(overhang,{type:'bar',data:{labels:O.map(o=>o[0]),datasets:[
+ {label:'Everyday reach',data:E,backgroundColor:O.map(o=>o[4]),borderRadius:4,barThickness:16},
+ {label:'Researcher‑only',data:R.map((r,i)=>r1(r-E[i])),backgroundColor:O.map(o=>fade(o[4],.45)),barThickness:16},
+ {label:'Untapped (overhang)',data:O.map((o,i)=>r1(o[1]-R[i])),backgroundColor:'rgba(226,232,240,.06)',borderColor:'rgba(226,232,240,.55)',borderWidth:1,borderDash:[3,3],borderRadius:4,barThickness:16}]},
+ options:{indexAxis:'y',layout:{padding:{right:60}},scales:{x:{stacked:true,min:0,max:60,title:{display:true,text:'AA Intelligence points'},grid:{color:'#1b212c'}},y:{stacked:true,grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{legend:{display:true,position:'top',align:'end',labels:{boxWidth:10,boxHeight:10}},tooltip:{callbacks:{title:c=>O[c[0].dataIndex][0],
+  label:()=>null,
+  afterBody:c=>{const i=c[0].dataIndex,o=O[i];if(!R[i])return['Ceiling: '+o[1],'No public access — testers only','Overhang: 100% of ceiling'];
+   return['Ceiling: '+o[1],'Researcher: '+R[i]+' ('+o[2][0]+'–'+o[2][1]+'%)','Everyday: '+E[i]+' ('+o[3][0]+'–'+o[3][1]+'%)','Researcher overhang: '+r1(o[1]-R[i]),'Everyday overhang: '+r1(R[i]-E[i]),'(estimates)'];}}}}},
+ plugins:[{id:'ohl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 10px Inter,system-ui';c.textBaseline='middle';c.textAlign='left';
+  ch.getDatasetMeta(2).data.forEach((e,i)=>{const u=Math.round((1-R[i]/O[i][1])*100);c.fillStyle='#cbd5e1';c.fillText(R[i]?u+(ch.width<500?'%':'% unused'):'gated',e.x+6,e.y);});c.restore();}}]});})();
 // 6 effort
 new Chart(effort,{type:'bar',data:{labels:['Sonnet 5.5','GPT‑6.1 Sol'],datasets:[
  {label:'Default/low',data:[45.9,57.2],backgroundColor:[fade(C.a,.35),fade(C.o,.35)],borderColor:[C.a,C.o],borderWidth:1.5,borderRadius:5},
@@ -317,8 +335,8 @@ const GLOSSARY={
 'Coding Agent Index':['Coding Agent(?: Index| %)?'],'Computer use':['computer use'],'Context window':['context window','Context','ctx'],'Elo':['Elo'],'Estimate':['estimates?','est\\.'],
 'Flagship':['flagships?'],'Gated':['GATED','Gated','gating','testers.only'],'Harness':['harness(?:es)?'],'LMArena':['LMArena','Arena'],'MAU / WAU':['MAU','WAU','monthly','weekly'],
 'Open‑weight vs closed':['open.weights?','Weights','closed'],'Preliminary rank':['prelim(?:inary)?'],'Price per 1M tokens':['\\$ ?in/out','Output \\$ ?(?:per|/) ?1M(?: tokens)?','\\$/1M'],
-'Reasoning effort':['effort','xhigh','max effort'],'Run‑rate':['run.rate','annualized'],'Unlock %':['Unlock %','unlock'],'Fine‑tuning':['fine.tun(?:e|ing)'],'GitHub stars':['stars?\\b','★'],'Open source':['open source']};
-const DEF={'Agentic':'The AI works through multi‑step tasks on its own — planning, using tools and checking results — instead of just answering one message.',
+'Reasoning effort':['effort','xhigh','max effort'],'Run‑rate':['run.rate','annualized'],'Unlock %':['Unlock %','unlock'],'Capability overhang':['overhang'],'Fine‑tuning':['fine.tun(?:e|ing)'],'GitHub stars':['stars?\\b','★'],'Open source':['open source']};
+const DEF={'Capability overhang':'The gap between what a model can do at its best and what people actually get out of it. Dashed outline = potential nobody is using; faded = only power users reach it.','Agentic':'The AI works through multi‑step tasks on its own — planning, using tools and checking results — instead of just answering one message.',
 'Artificial Analysis Intelligence Index':'An independent score (0–100) from Artificial Analysis that averages many hard tests in reasoning, knowledge, math and coding. Higher = smarter.',
 'ARR':'Annual recurring revenue: current monthly revenue × 12. A growth signal, not a year of actual sales.',
 'Ceiling tier':'A lab’s most capable (and usually priciest) model — the top of what it can do today, e.g. GPT‑6 Astra or Claude Fable.',
@@ -365,6 +383,39 @@ const DEF={'Agentic':'The AI works through multi‑step tasks on its own — pla
  const md=document.createElement('div');md.id='gmod';md.hidden=true;md.innerHTML=`<div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gttl"><div class="ghd"><h2 id="gttl">Glossary</h2><button id="gx" aria-label="Close glossary">✕</button></div><dl>${Object.keys(DEF).sort((a,b)=>a.localeCompare(b)).map(k=>`<dt>${k}</dt><dd>${DEF[k]}</dd>`).join('')}</dl></div>`;document.body.appendChild(md);
  const openG=()=>{hide();md.hidden=false;document.getElementById('gx').focus();};window.closeG=()=>{if(!md.hidden){md.hidden=true;btn.focus();}};
  btn.onclick=openG;md.addEventListener('click',e=>{if(e.target===md||e.target.id==='gx')closeG();});
+})();
+
+// chart "About" modal — CHART_INFO keyed by data-info id; refresh routine updates these texts
+const CHART_INFO={
+arena:{t:'Human preference · LMArena Text',q:'Which model do people prefer when they compare answers blind?',r:'Longer bar = better rank. Colour = lab. * = preliminary rank.',s:'LMArena Text leaderboard, Oct 8, 2026.',c:'Measures taste in chat answers, not accuracy or agent skill. Close ranks are within noise.'},
+aa:{t:'Independent intelligence & coding',q:'How smart is each model on hard, independent tests?',r:'Solid bar = AA Intelligence Index (0–100). Faded bar = Coding Agent Index (%).',s:'Artificial Analysis, Oct 2026 (best effort setting).',c:'Scores use max effort, which most chat users never switch on.'},
+price:{t:'Price vs intelligence',q:'Which models give the most smarts per dollar?',r:'X = output $ per 1M tokens (log scale). Y = AA Intelligence. Up‑left = better value.',s:'Official API price pages + Artificial Analysis, Oct 2026.',c:'List prices only; caching, batch and subscriptions change the real cost.'},
+usage:{t:"Who's actually using it",q:'How many people use each lab’s app?',r:'Bar = millions of users. Solid = weekly, hatched = monthly.',s:'Company statements and filings (dates on the labels).',c:'Weekly and monthly counts aren’t comparable; numbers are for apps, not one model.'},
+unlock:{t:'Researcher vs everyday unlock',q:'How much of a model’s ability do power users vs casual users actually reach?',r:'Each row shows two ranges: faded = everyday users, solid = researchers.',s:'Our estimates from access tier, tools and default settings; anchored on Anthropic’s Claude Code study.',c:'Estimates, not measurements. No public study measures this across labs.'},
+overhang:{t:'Capability overhang',q:'Where is real model potential sitting unused?',r:'Full bar = model ceiling (AA Intelligence). Solid = everyday reach, faded = extra researchers reach, dashed outline = untapped.',s:'AA Intelligence (Oct 12) × midpoints of our unlock estimates.',c:'Estimates. Argon has no public access. Meta and Xiaomi reach figures are derived (see Sources & caveats).'},
+effort:{t:'The effort gap',q:'How much do you lose by leaving the default effort setting?',r:'Pairs of bars: default effort vs max effort, on the Coding Agent Index.',s:'Artificial Analysis, Oct 2026.',c:'Only two models have both settings published.'},
+ctx:{t:'Context window',q:'How much text can each model hold in mind at once?',r:'Bar = thousands of tokens (about ¾ of a word each).',s:'Official model docs, Oct 2026.',c:'Google hasn’t published Gemini’s window, so it’s left out. Bigger isn’t always used well.'},
+aidb:{t:'AI Daily Brief take',q:'What does a close daily observer think of each launch?',r:'One card per lab with three short notes and episode links.',s:'The AI Daily Brief (Nathaniel Whittemore) transcripts, Sep 22 – Oct 1, 2026.',c:'Commentary and paraphrase, not data. Some notes quote early user reactions.'},
+lArena:{t:'Human preference · every lab',q:'How does every lab’s best model rank with people?',r:'One bar per company’s best model, longer = higher Elo. Colour = group (big four, big tech, China, open‑weight, new labs).',s:'LMArena Text, Oct 8, 2026.',c:'Labs with no public text score (Microsoft, SSI, Perplexity…) are missing.'},
+lAA:{t:'Intelligence · every lab',q:'Which labs are closest to the frontier on hard tests?',r:'Bar = AA Intelligence Index. Faded bar = partial/estimated score (*).',s:'Artificial Analysis, Oct 12, 2026.',c:'One row per lab; partial scores are less reliable.'},
+lGap:{t:'Open vs closed gap',q:'How far behind are models you can download?',r:'Compares the best closed and best open‑weight model on Elo (÷10) and AA Intelligence.',s:'LMArena + Artificial Analysis, Oct 2026.',c:'“Open” follows each licence; some have usage limits.'},
+lPrice:{t:'Price vs intelligence · all',q:'Who gives the most capability per dollar across the whole field?',r:'X = output $ per 1M tokens (log). Y = AA Intelligence. Up‑left = better value.',s:'Provider price pages + Artificial Analysis, Oct 2026.',c:'Models without public API prices are left off.'},
+table:{t:'Capability matrix',q:'All the numbers in one place.',r:'One row per model. Tap a column header to sort; use the filters to narrow by group. Colours rank cells.',s:'LMArena (Oct 8), Artificial Analysis (Oct 12), provider pages.',c:'Dash = no public figure. * = partial estimate.'},
+harness:{t:'Harnesses & coding agents',q:'Which tools wrap the models, and how big are they?',r:'One card per tool, with the models it runs on and reported revenue or users.',s:'Company posts and press reports (dates in Sources).',c:'Many figures are second‑hand estimates.'},
+mx:{t:'Who runs on whose model',q:'Which harness depends on which lab?',r:'Rows = tools, columns = model makers. Filled dot = supported; ring = own model.',s:'Product docs and settings pages, Oct 2026.',c:'Model lists change often; defaults aren’t shown.'}};
+(function(){const st=document.createElement('style');st.textContent=`.ht{min-width:0}.ib{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--muted);font:600 11px/1 Inter,system-ui;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-left:6px}.ib:hover,.ib:focus-visible{color:var(--text);border-color:var(--muted)}
+#cim{position:fixed;inset:0;z-index:80;background:#000a;display:grid;place-items:center;padding:16px}#cim[hidden]{display:none}#cim .cb{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:460px;width:100%;padding:18px 20px;max-height:84vh;overflow:auto}#cim .ch{display:flex;justify-content:space-between;align-items:center;gap:10px}#cim h3{margin:0;font-size:1rem}#cim dl{margin:12px 0 0}#cim dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:10px}#cim dd{margin:2px 0 0;font-size:.88rem;line-height:1.45}#cix{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;width:30px;height:30px;cursor:pointer}`;document.head.appendChild(st);
+const m=document.createElement('div');m.id='cim';m.hidden=true;m.innerHTML='<div class="cb" role="dialog" aria-modal="true" aria-labelledby="cit"><div class="ch"><h3 id="cit"></h3><button id="cix" aria-label="Close">✕</button></div><dl id="cid"></dl></div>';document.body.appendChild(m);
+let opener=null;const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const open=(k,b)=>{const d=CHART_INFO[k];if(!d)return;opener=b;document.getElementById('cit').textContent=d.t;
+ document.getElementById('cid').innerHTML=[['What it answers',d.q],['How to read it',d.r],['Source & date',d.s],['Caveats',d.c]].map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join('');m.hidden=false;document.getElementById('cix').focus();};
+const close=()=>{if(m.hidden)return;m.hidden=true;opener&&opener.focus();};
+document.querySelectorAll('h2[data-info]').forEach(h=>{const k=h.dataset.info;const b=document.createElement('button');b.className='ib';b.type='button';b.textContent='i';b.setAttribute('aria-label','About this chart: '+(CHART_INFO[k]||{}).t);b.setAttribute('aria-haspopup','dialog');b.title='About this chart';
+ const ht=document.createElement('span');ht.className='ht';const kids=[...h.childNodes];for(let i=0;i<kids.length;i++){const n=kids[i];if(n.nodeType===1&&n.tagName==='SPAN'&&i>0&&!n.classList.contains('term'))break;ht.appendChild(n);}
+ h.insertBefore(ht,h.firstChild);ht.appendChild(b);
+ b.addEventListener('click',e=>{e.stopPropagation();open(k,b);});});
+m.addEventListener('click',e=>{if(e.target===m||e.target.id==='cix')close();});
+document.addEventListener('keydown',e=>{if(m.hidden)return;if(e.key==='Escape'){e.stopPropagation();close();}if(e.key==='Tab'){const f=[...m.querySelectorAll('button,a[href]')];if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}},true);
 })();
 </script>
 </body>
