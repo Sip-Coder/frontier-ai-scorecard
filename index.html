@@ -451,9 +451,14 @@ async function setPast(d){if(!d||d===CUR.date){PAST=null;document.body.classList
  slide.value=Math.max(0,IDX.snapshots.findIndex(s=>s.date===(PAST?PAST.date:CUR.date)));
  render(colL,CUR,'l');deltas();requestAnimationFrame(()=>{align();});url();setBarH();}
 function topSec(){const v=[...document.querySelectorAll('.col:not([hidden]):not(.hide) [data-sec]')].find(e=>e.getBoundingClientRect().bottom>90);return v&&v.dataset.sec;}
-function setM(s){const keep=topSec();mside=s;mtabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));if(innerWidth<=900&&PAST){colL.classList.toggle('hide',s!=='l');colR.classList.toggle('hide',s!=='r');}else{colL.classList.remove('hide');colR.classList.remove('hide');}
- if(keep&&scrollY>0){const t=(s==='l'?colL:colR).querySelector(`[data-sec="${keep}"]`);if(t){const ch=(s==='l'?colL:colR).querySelector('.chd');scrollTo(0,t.getBoundingClientRect().top+scrollY-(document.getElementById('bar').offsetHeight+(ch&&ch.offsetHeight||0)+8));}}}
-mtabs.querySelectorAll('button').forEach(b=>b.onclick=()=>setM(b.dataset.s));
+const barB=()=>document.getElementById('bar').getBoundingClientRect().bottom;
+function anchor(){const y=barB()+1,c=[...document.querySelectorAll('.col:not([hidden]):not(.hide)')].find(e=>e.offsetParent);if(!c||scrollY<=0)return null;
+ const v=[...c.querySelectorAll('[data-sec]')].filter(e=>{const r=e.getBoundingClientRect();return r.top<=y&&r.bottom>y;}).pop()||[...c.querySelectorAll('[data-sec]')].find(e=>e.getBoundingClientRect().bottom>y);
+ if(!v)return null;const r=v.getBoundingClientRect();return {sec:v.dataset.sec,f:(y-r.top)/Math.max(1,r.height),px:y-r.top};}
+function restore(k,col){if(!k)return;const t=col.querySelector(`[data-sec="${k.sec}"]`);if(!t)return;const r=t.getBoundingClientRect();const off=k.px<=r.height?k.px:k.f*r.height;scrollTo({top:r.top+scrollY+off-(barB()+1),behavior:'instant'});}
+function setM(s){const keep=anchor();mside=s;mtabs.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));if(innerWidth<=900&&PAST){colL.classList.toggle('hide',s!=='l');colR.classList.toggle('hide',s!=='r');}else{colL.classList.remove('hide');colR.classList.remove('hide');}
+ const col=s==='l'?colL:colR;restore(keep,col);requestAnimationFrame(()=>restore(keep,col));}
+mtabs.querySelectorAll('button').forEach(b=>{b.onmousedown=e=>e.preventDefault();b.onclick=()=>setM(b.dataset.s);});
 // swipe between editions on mobile
 let sx=null;document.getElementById('cols').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});document.getElementById('cols').addEventListener('touchend',e=>{if(sx==null||!PAST||innerWidth>900)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>70&&!e.target.closest('.tw,canvas'))setM(dx<0?'r':'l');sx=null;});
 function setBarH(){document.documentElement.style.setProperty('--barh',document.getElementById('bar').offsetHeight+'px');}
