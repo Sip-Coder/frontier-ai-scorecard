@@ -1,0 +1,281 @@
+{
+ "schema": 1,
+ "current": "2026-10-12",
+ "cadence": "weekly (Sundays) + editions",
+ "snapshots": [
+  {
+   "date": "2026-01-04",
+   "file": "2026-01-04",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-01-11",
+   "file": "2026-01-11",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-01-18",
+   "file": "2026-01-18",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-01-25",
+   "file": "2026-01-25",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-02-01",
+   "file": "2026-02-01",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-02-08",
+   "file": "2026-02-08",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-02-15",
+   "file": "2026-02-15",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-02-22",
+   "file": "2026-02-22",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-03-01",
+   "file": "2026-03-01",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-03-08",
+   "file": "2026-03-08",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-03-15",
+   "file": "2026-03-15",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-03-22",
+   "file": "2026-03-22",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-03-29",
+   "file": "2026-03-29",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-04-05",
+   "file": "2026-04-05",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-04-12",
+   "file": "2026-04-12",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-04-19",
+   "file": "2026-04-19",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-04-26",
+   "file": "2026-04-26",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-05-03",
+   "file": "2026-05-03",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-05-10",
+   "file": "2026-05-10",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-05-17",
+   "file": "2026-05-17",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-05-24",
+   "file": "2026-05-24",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-05-31",
+   "file": "2026-05-31",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-06-07",
+   "file": "2026-06-07",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-06-14",
+   "file": "2026-06-14",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-06-21",
+   "file": "2026-06-21",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-06-28",
+   "file": "2026-06-28",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-07-05",
+   "file": "2026-07-05",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-07-12",
+   "file": "2026-07-12",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-07-19",
+   "file": "2026-07-19",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-07-26",
+   "file": "2026-07-26",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-08-02",
+   "file": "2026-08-02",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-08-09",
+   "file": "2026-08-09",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-08-16",
+   "file": "2026-08-16",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-08-23",
+   "file": "2026-08-23",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-08-30",
+   "file": "2026-08-30",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-09-06",
+   "file": "2026-09-06",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-09-13",
+   "file": "2026-09-13",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-09-20",
+   "file": "2026-09-20",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-09-21",
+   "file": "2026-09-21",
+   "kind": "edition",
+   "tag": "edition"
+  },
+  {
+   "date": "2026-09-27",
+   "file": "2026-09-27",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-10-04",
+   "file": "2026-10-04",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-10-10",
+   "file": "2026-10-10",
+   "kind": "edition",
+   "tag": "edition"
+  },
+  {
+   "date": "2026-10-11",
+   "file": "2026-10-11",
+   "kind": "weekly",
+   "tag": null
+  },
+  {
+   "date": "2026-10-12",
+   "file": "2026-10-12",
+   "kind": "current",
+   "tag": "current"
+  }
+ ],
+ "legacy": [
+  {
+   "t": "Sep 21, 2026",
+   "url": "archive/2026-09-21.html"
+  },
+  {
+   "t": "Oct 10, 2026",
+   "url": "archive/2026-10-10.html"
+  }
+ ]
+}
