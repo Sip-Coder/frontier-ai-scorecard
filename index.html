@@ -1,291 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Frontier capabilities gap — Oct 2026</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontier AI Scorecard — Oct 10, 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --bg: #0f1115;
-    --card: #1a1d24;
-    --line: #2a2f3a;
-    --text: #e8eaed;
-    --muted: #9aa3b2;
-    --accent: #7dd3fc;
-    --grok: #a78bfa;
-    --openai: #34d399;
-    --claude: #fbbf24;
-    --gemini: #60a5fa;
-    --warn: #fb923c;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; padding: 32px 20px 64px;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.45;
-  }
-  .wrap { max-width: 1100px; margin: 0 auto; }
-  h1 { font-size: 1.6rem; margin: 0 0 6px; }
-  .sub { color: var(--muted); margin: 0 0 28px; font-size: 0.95rem; }
-  .note {
-    background: #1f1810; border: 1px solid #5b3d1a; color: #ffd8a8;
-    padding: 12px 14px; border-radius: 10px; margin-bottom: 24px; font-size: 0.9rem;
-  }
-  h2 { font-size: 1.1rem; margin: 28px 0 12px; color: var(--accent); }
-  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-  th, td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; text-align: left; }
-  th { background: #151820; color: var(--muted); font-weight: 600; }
-  tr:nth-child(even) td { background: #161922; }
-  .pill {
-    display: inline-block; padding: 2px 8px; border-radius: 999px;
-    font-size: 0.75rem; font-weight: 600; margin-right: 6px;
-  }
-  .p-grok { background: #2a2140; color: var(--grok); }
-  .p-openai { background: #123028; color: var(--openai); }
-  .p-claude { background: #33280f; color: var(--claude); }
-  .p-gemini { background: #0f2740; color: var(--gemini); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
-  }
-  .card h3 { margin: 0 0 4px; font-size: 1rem; }
-  .meta { color: var(--muted); font-size: 0.8rem; margin-bottom: 10px; }
-  .bar-wrap { margin: 8px 0; }
-  .bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-  .bar { height: 8px; background: #10131a; border-radius: 99px; overflow: hidden; }
-  .fill { height: 100%; border-radius: 99px; }
-  .f-r { background: linear-gradient(90deg, #38bdf8, #a78bfa); }
-  .f-n { background: linear-gradient(90deg, #64748b, #94a3b8); }
-  ul { margin: 6px 0 0; padding-left: 18px; }
-  li { margin: 3px 0; }
-  .est { color: var(--warn); font-size: 0.78rem; }
-  footer { margin-top: 28px; color: var(--muted); font-size: 0.8rem; }
-  .changed { background:#0f1f1a; border:1px solid #1f5c46; padding:12px 16px; border-radius:10px; margin-bottom:8px; font-size:0.9rem; }
-  .changed li { margin:4px 0; }
-  .new { display:inline-block; background:#123028; color:#34d399; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:6px; margin-left:4px; }
-  .gated { display:inline-block; background:#3a1f10; color:#fb923c; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:6px; margin-left:4px; }
-  .delta { color:#34d399; font-size:0.78rem; }
-  .dim { color:#9aa3b2; }
-  .why { color:#9aa3b2; font-size:0.78rem; display:block; margin-top:4px; }
-  footer a { color:#7dd3fc; }
+:root{--bg:#0b0d12;--card:#141821;--line:#232a36;--text:#eef0f4;--muted:#8b94a5;--accent:#7dd3fc;
+--grok:#a78bfa;--openai:#34d399;--claude:#fbbf24;--gemini:#60a5fa;--warn:#fb923c}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 500px at 50% -200px,#1a2033 0%,var(--bg) 70%);color:var(--text);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.4}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 20px 56px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:24px}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;margin:0;font-weight:750}
+.ed{color:var(--muted);font-size:.9rem;margin-top:6px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:650;color:var(--warn);
+border:1px solid #5b3d1a;background:#1f1810;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.labs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px}
+.lab{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;overflow:hidden}
+.lab::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--c)}
+.lab .co{display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.chip{width:22px;height:22px;border-radius:7px;background:var(--c);color:#0b0d12;font-weight:800;font-size:.72rem;display:grid;place-items:center}
+.lab .m{font-weight:700;font-size:1.05rem;margin:8px 0 2px}
+.lab .d{color:var(--muted);font-size:.78rem}
+.lab .v{margin-top:8px;font-size:.85rem;color:var(--c)}
+.tag{font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:5px;margin-left:4px;vertical-align:2px;background:#3a1f10;color:var(--warn)}
+.changes{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.ch{font-size:.8rem;background:#121722;border:1px solid var(--line);border-radius:999px;padding:6px 12px;display:flex;gap:7px;align-items:center}
+.ch i{width:8px;height:8px;border-radius:50%;background:var(--c);display:inline-block;flex:none}
+.ch b{color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 16px 12px;min-width:0}
+.s6{grid-column:span 6}.s4{grid-column:span 4}.s8{grid-column:span 8}.s12{grid-column:span 12}
+.card h2{font-size:.95rem;margin:0 0 2px;font-weight:650;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.cap{color:var(--muted);font-size:.75rem;margin:6px 0 0}
+.cv{position:relative;height:260px;margin-top:10px}
+.cv.sm{height:150px}
+.cv canvas{max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.75rem;color:var(--muted);margin:16px 0 0}
+.legend span{display:flex;align-items:center;gap:6px}.legend i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+details{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:.8rem;color:var(--muted)}
+summary{cursor:pointer;color:var(--text);font-weight:600}
+details ul{padding-left:18px}details li{margin:4px 0}
+a{color:var(--accent)}
+footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:14px}
+@media (max-width:900px){.labs{grid-template-columns:repeat(2,minmax(0,1fr))}.s6,.s4,.s8{grid-column:span 12}}
+@media (max-width:480px){.wrap{padding:24px 14px 40px}.lab{padding:12px}.lab .m{font-size:.95rem}.cv{height:240px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Frontier capabilities gap</h1>
-  <p class="sub">Latest flagships as of Oct 10, 2026 (PT). Updates the Sep 21 edition. Preference &amp; independent indices cited; vendor tables treated as claims.</p>
+<header>
+  <div><h1>Frontier AI Scorecard</h1><div class="ed">Edition Oct 10, 2026 · next refresh Oct 15</div></div>
+  <span class="badge">⚠ Unlock % = estimates, not measured</span>
+</header>
 
-  <div class="note">
-    <strong>On the % columns:</strong> There is no public cross-lab study that measures “% of model capability unlocked.”
-    Researcher / everyday-user % below are <em>Katie estimates</em> (how much of that model’s practical ceiling a typical user in each group can actually reach via access + habits), anchored on access tiers and Anthropic’s Claude Code study (novice verified success ~15% vs expert ~28–33%). Not measured facts. Where an estimate moved since Sep 21, the reason is stated next to it.
-  </div>
+<section class="labs">
+  <div class="lab" style="--c:var(--grok)"><div class="co"><span class="chip">x</span>xAI</div><div class="m">Grok 4.7</div><div class="d">Sep 21 · 500k ctx · $2/$6</div><div class="v">Cheapest agent; weak on preference</div></div>
+  <div class="lab" style="--c:var(--openai)"><div class="co"><span class="chip">O</span>OpenAI</div><div class="m">GPT‑6.1 Sol</div><div class="d">Sep 29 · 1.05M ctx · $2/$10</div><div class="v">Near‑Astra smarts at ⅕ price</div></div>
+  <div class="lab" style="--c:var(--claude)"><div class="co"><span class="chip">A</span>Anthropic</div><div class="m">Claude Opus 5.5</div><div class="d">Sep 22 · 1M ctx · $4/$20</div><div class="v">#1 intelligence, top coding agent</div></div>
+  <div class="lab" style="--c:var(--gemini)"><div class="co"><span class="chip">G</span>Google</div><div class="m">Gemini 4 Argon<span class="tag">GATED</span></div><div class="d">Sep 30 · testers only · public: 3.8 Flash</div><div class="v">#1 LMArena (prelim), not public</div></div>
+</section>
 
-  <h2>What changed since Sep 21</h2>
-  <div class="changed">
-    <ul>
-      <li><strong>All four labs shipped.</strong> xAI Grok 4.7 (Sep 21) · Anthropic Claude Opus 5.5 (Sep 22), Sonnet 5.5 (Sep 28), Haiku 5.5 (Oct 7) · OpenAI GPT‑6 Sol/Luna (Sep 22), GPT‑6.1 Sol (Sep 29, DevDay), GPT‑6 in ChatGPT Chat for all tiers (Oct 7–8) · Google Gemini 4 Argon announced Sep 30 (gated, not public).</li>
-      <li><strong>New #1 on independent intelligence:</strong> Claude Opus 5.5 (max) scores <strong>58</strong> on the Artificial Analysis Intelligence Index, up from the Sep tie of Astra / Fable 5.1 at 53.</li>
-      <li><strong>New #1 on human preference:</strong> Gemini 4 Argon‑high leads LMArena Text (1525, <em>preliminary</em>, ~4.9k votes); Opus 5.5‑high is #2 (1507). Fable 5 slipped from #1 to #4.</li>
-      <li><strong>Near-frontier got cheaper:</strong> GPT‑6.1 Sol hits AA 52 at ~1/5 of Astra’s token price ($2/$10); Opus 5.5 cut to $4/$20 (−20% per token, ~−40% typical cost per Anthropic).</li>
-      <li><strong>More gating:</strong> Argon only for Fairwind cyber defenders + trusted testers; Opus/Sonnet 5.5 send cyber tasks to fallback models unless verified (CVP); OpenAI rates GPT‑6.1 Sol “Critical” for cyber. TechCrunch, citing the WSJ, reports that OpenAI dropped a planned GPT‑6.1 Astra over safety concerns.</li>
-      <li><strong>Reach:</strong> ChatGPT now &gt;1.2B weekly users (OpenAI), and GPT‑6 is now in the Free tier. Grok 4.7 improved on benchmarks but placed <em>below</em> Grok 4.6 on LMArena.</li>
-    </ul>
-  </div>
+<section class="changes">
+  <span class="ch" style="--c:var(--claude)"><i></i><b>AA #1</b> Opus 5.5 hits 58 (was 53)</span>
+  <span class="ch" style="--c:var(--gemini)"><i></i><b>Arena #1</b> Argon 1525, prelim</span>
+  <span class="ch" style="--c:var(--openai)"><i></i><b>Cheaper</b> 6.1 Sol $0.72/task vs Astra $3.26</span>
+  <span class="ch" style="--c:var(--openai)"><i></i><b>Reach</b> ChatGPT 1.2B weekly; GPT‑6 on Free</span>
+  <span class="ch" style="--c:var(--grok)"><i></i><b>Grok 4.7</b> coding 47→56%, Arena below 4.6</span>
+  <span class="ch" style="--c:var(--warn)"><i></i><b>Gating</b> Argon testers‑only; cyber fallbacks</span>
+</section>
 
-  <h2>Scoreboard (independent)</h2>
-  <table>
-    <thead><tr><th>Model</th><th>LMArena Text (Oct 8)</th><th>AA Intelligence Index</th><th>AA Coding Agent Index v1.5</th></tr></thead>
-    <tbody>
-      <tr><td><span class="pill p-grok">xAI</span> Grok 4.7</td><td>#90 · 1443 · 8,780 votes (xhigh)<br><span class="dim">Grok 4.6‑high now #72 · 1454</span></td><td>46 (xhigh / high)</td><td>56.3% (Grok Build, xhigh) <span class="delta">↑ from 47.0% for 4.6</span></td></tr>
-      <tr><td><span class="pill p-openai">OpenAI</span> GPT‑6.1 Sol / GPT‑6 Astra</td><td>6.1 Sol‑max #21 · 1484 · 4,512 votes<br>Astra‑max #35 · 1475 · 10,536 votes</td><td>6.1 Sol 52 (max, $0.72/task)<br>Astra 53 (max, $3.26/task)</td><td>6.1 Sol 62.9% (Codex, xhigh)<br>Astra 61.6% (Codex, max)</td></tr>
-      <tr><td><span class="pill p-claude">Anthropic</span> Claude Opus 5.5 / Sonnet 5.5</td><td>Opus 5.5‑high #2 · 1507 · 6,272 votes<br>Fable 5.1‑max #6 · 1501 · Sonnet 5.5‑xhigh #32 · 1476</td><td><strong>Opus 5.5 58</strong> (#1) · Sonnet 5.5 56 · Fable 5.1 53</td><td><strong>Sonnet 5.5 68.4%</strong> (#1) · Opus 5.5 66.0% (Claude Code, max)</td></tr>
-      <tr><td><span class="pill p-gemini">Google</span> Gemini 4 Argon / 3.8 Flash</td><td><strong>Argon‑high #1 · 1525</strong> (prelim, 4,892 votes)<br>3.8 Flash‑high #8 · 1497 (prelim)</td><td>Argon 53 (high, $1.99/task)<br>3.8 Flash 41 (high)</td><td>Argon 63.8% (Antigravity CLI)<br>3.8 Flash 41.9% (Antigravity SDK)</td></tr>
-    </tbody>
-  </table>
+<section class="grid">
+  <div class="card s6"><h2>Human preference · LMArena Text</h2><div class="cv"><canvas id="arena"></canvas></div><p class="cap">Elo, Oct 8. Argon &amp; 3.8 Flash preliminary.</p></div>
+  <div class="card s6"><h2>Independent intelligence &amp; coding</h2><div class="cv"><canvas id="aa"></canvas></div><p class="cap">Artificial Analysis Intelligence Index vs Coding Agent Index (%).</p></div>
+  <div class="card s6"><h2>Price vs intelligence</h2><div class="cv"><canvas id="price"></canvas></div><p class="cap">Output $ per 1M tokens (log). Up‑left = better value.</p></div>
+  <div class="card s6"><h2>Who's actually using it</h2><div class="cv"><canvas id="usage"></canvas></div><p class="cap">App users, millions. Solid = weekly, hatched = monthly — not directly comparable.</p></div>
+  <div class="card s8"><h2>Researcher vs everyday unlock <span class="badge">Estimate</span></h2><div class="cv"><canvas id="unlock"></canvas></div><p class="cap">Share of each model's practical ceiling reached. Google = 3.8 Flash.</p></div>
+  <div class="card s4"><h2>The effort gap</h2><div class="cv"><canvas id="effort"></canvas></div><p class="cap">Coding Agent % at default vs max effort.</p></div>
+  <div class="card s12"><h2>Context window</h2><div class="cv sm"><canvas id="ctx"></canvas></div><p class="cap">Tokens. Gemini context not stated in sources (Argon: 1M output).</p></div>
+</section>
 
-  <h2>At a glance</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Lab / model</th>
-        <th>Where it leads</th>
-        <th>Where it lags</th>
-        <th>Researcher unlock <span class="est">est.</span></th>
-        <th>Everyday unlock <span class="est">est.</span></th>
-        <th>People actually using it?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="pill p-grok">xAI</span><br><strong>Grok 4.7</strong> <span class="new">NEW</span><br><span class="dim">Sep 21, 2026 · 500k ctx · $2/$6</span></td>
-        <td>Price/perf (same price as 4.6); vendor claims: Harvey Legal Agent 19.6%, EEBench 64.0%, top jailbreak resistance; X search; Coding Agent +9 pts vs 4.6</td>
-        <td>LMArena #90 (below 4.6); AA 46 vs 58 leader; Terminal‑Bench 4.0 37.6% (vendor); 500k ctx; Fast variant only in Cursor / Grok Build</td>
-        <td><strong>60–75%</strong><span class="why">unchanged</span></td>
-        <td><strong>30–45%</strong><span class="why">unchanged</span></td>
-        <td>No new official MAU; ~117M MAU of Grok AI features (Mar 31, SpaceX S‑1) still latest. Sensor Tower via BofA: ~2M Grok <em>mobile</em> DAU (Sep 2026)</td>
-      </tr>
-      <tr>
-        <td><span class="pill p-openai">OpenAI</span><br><strong>GPT‑6.1 Sol</strong> <span class="new">NEW</span><br><span class="dim">Sep 29, 2026 · 1.05M ctx · $2/$10</span><br>+ GPT‑6 Astra ceiling (Sep 3)</td>
-        <td>Near-Astra (AA 52 vs 53) at ~1/5 the price; Codex 62.9%; Astra still top on Terminal‑Bench‑Science (68.1%, vendor); Intelligent UI in Chat; largest distribution</td>
-        <td>LMArena: 6.1 Sol #21, Astra #35; trails Opus 5.5 on AA (58); 6.1 Sol not in Chat tab (Work / Codex / API only); “Critical” cyber rating → Astra-level safeguards</td>
-        <td><strong>70–85%</strong><span class="why">unchanged</span></td>
-        <td><strong>30–45%</strong> <span class="delta">↑ from 25–40%</span><span class="why">GPT‑6 Sol/Luna became the Chat default for every tier, including Free, on Oct 7–8, and Intelligent UI shows more of what the model can do without prompting skill</span></td>
-        <td>ChatGPT &gt;1.2B weekly users (OpenAI, Sep 29 / Oct 7); 664M mobile DAU in Sep (Sensor Tower via BofA); Codex + ChatGPT Work 40M “active users” (OpenAI on X, Oct 7, no time window given)</td>
-      </tr>
-      <tr>
-        <td><span class="pill p-claude">Anthropic</span><br><strong>Claude Opus 5.5</strong> <span class="new">NEW</span><br><span class="dim">Sep 22, 2026 · 1M ctx · $4/$20</span><br>+ Sonnet 5.5 (Sep 28), Haiku 5.5 (Oct 7); Fable 5.1 tier</td>
-        <td>AA #1 (58); GDPval‑AA 1846 &amp; AA‑Briefcase 1822; LMArena #2; Claude Code holds the top 2 Coding Agent slots; ~40% cheaper than Opus 5</td>
-        <td>Behind GPT‑6.1 Sol / Astra on GDP.pdf &amp; Terminal‑Bench‑Science (OpenAI claims); cyber tasks fall back to Opus 4.8 unless CVP‑verified; uses a lot of tokens at max effort (~119k output tokens per AA task)</td>
-        <td><strong>70–85%</strong> <span class="delta">↑ from 65–80%</span><span class="why">Opus 5.5 matches or beats Fable 5.1 at Opus pricing, so researchers no longer need the extra Fable tier to reach the ceiling. CVP / Life Sciences verification is now the main gate</span></td>
-        <td><strong>35–50%</strong><span class="why">unchanged: Sonnet 5.5 is now on Free, but the apps default to Medium effort (see the usage card)</span></td>
-        <td>No new official count; Claude app ~56M MAU (Reuters / Sensor Tower, Jun 2026) is still the latest verified figure. A third-party 271M “MAU” estimate (FirstPageSage) is unverified</td>
-      </tr>
-      <tr>
-        <td><span class="pill p-gemini">Google</span><br><strong>Gemini 4 Argon</strong> <span class="gated">GATED</span><br><span class="dim">Announced Sep 30, 2026 · 1M output · intro $2/$10 (later $4/$20)</span><br>Public model: Gemini 3.8 Flash (Sep 2)</td>
-        <td>LMArena #1 (prelim); Coding Agent 63.8%; vendor claims: DeepSWE 77.9% SOTA, AutomationBench 51.3% #1, Vals Index lead, LVBench 91.7%; 3.8 Flash still best $/perf</td>
-        <td>Only Fairwind cyber defenders + trusted testers; no public API / app / date; AA 53 &lt; Opus 5.5 58; the public 3.8 Flash scores AA 41 and Coding Agent 41.9%</td>
-        <td><strong>55–70%</strong> (3.8 Flash)<span class="why">unchanged; for Argon, “n/a” for anyone outside Fairwind</span></td>
-        <td><strong>45–60%</strong> (3.8 Flash)<span class="why">unchanged; 0% access to Argon for now</span></td>
-        <td>Gemini app &gt;1B MAU (Google, Aug 2026, still the latest official figure); 151M mobile DAU in Sep, +11% m/m (Sensor Tower via BofA); Skills launched Sep 30</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>What the newest models can do as a whole</h2>
-  <div class="grid">
-    <div class="card"><h3>Shared ceiling</h3>
-      <ul>
-        <li>Selectable reasoning effort (up to 5 levels: low → max)</li>
-        <li>Tools: functions, code exec, search</li>
-        <li>Vision + 500k–1M context; output limits now 128k (Opus 5.5, 6.1 Sol) up to 1M (Argon)</li>
-        <li>Multi-hour agentic coding (e.g., 18-hour unattended runs; codebase-wide migrations)</li>
-        <li>Computer use is now in APIs (OpenAI Agents API; Claude OSWorld ~80%+)</li>
-        <li>Always-on / scheduled agents (OpenAI Dots, ChatGPT team tasks)</li>
-      </ul>
-    </div>
-    <div class="card"><h3>Real gaps that still matter</h3>
-      <ul>
-        <li><strong>Preference:</strong> Argon (prelim) ≈ Anthropic &gt; Gemini 3.8 Flash &gt; GPT‑6.1 Sol &gt; Astra &gt; Grok 4.7</li>
-        <li><strong>Independent AA:</strong> Opus 5.5 (58) leads; Astra ≈ Argon ≈ Fable (53); 6.1 Sol 52; Grok 4.7 46; 3.8 Flash 41</li>
-        <li><strong>Access:</strong> Google’s best is gated; Anthropic &amp; OpenAI gate cyber/bio use</li>
-        <li><strong>Price:</strong> the ~$2-input tier now reaches near-frontier (6.1 Sol, Grok 4.7, Argon intro)</li>
-        <li><strong>Distribution:</strong> ChatGPT 1.2B WAU + Gemini 1B MAU vs Claude &amp; Grok far smaller</li>
-      </ul>
-    </div>
-    <div class="card"><h3>Are people using advanced features?</h3>
-      <ul>
-        <li>Agent surfaces are still a small slice: Codex + Work at 40M is roughly 3% of ChatGPT’s 1.2B weekly users (the two figures use different measures)</li>
-        <li>Default effort matters: the Claude apps default to Medium. Sonnet 5.5 scores 45.9% on the Coding Agent Index at medium vs 68.4% at max</li>
-        <li>Experts reach ~2× the verified success of novices (15% → 28–33%, Anthropic). No newer cross-lab study found</li>
-        <li>OpenAI’s answer is to make the UI do the work: Intelligent UI in Chat for everyone</li>
-        <li>Still no apples-to-apples “unlock %” across labs</li>
-      </ul>
-    </div>
-  </div>
-
-  <h2>Per model — researcher vs everyday</h2>
-  <div class="grid">
-    <div class="card">
-      <h3><span class="pill p-grok">Grok 4.7</span></h3>
-      <div class="meta">Researchers do differently: xhigh effort, Grok Build / Cursor (Fast variant only there), X + web search, US regional endpoint, invite-only red-team access for cyber partners</div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Researcher unlock</span><span>60–75% est.</span></div>
-        <div class="bar"><div class="fill f-r" style="width:68%"></div></div>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Everyday unlock</span><span>30–45% est.</span></div>
-        <div class="bar"><div class="fill f-n" style="width:38%"></div></div>
-      </div>
-      <ul>
-        <li>Everyday: grok.com / X / apps (Grok 4.7 behind Expert mode, per third-party changelogs)</li>
-        <li>Gap driver: agent harness + xhigh vs casual X chat</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="pill p-openai">GPT‑6.1 Sol</span> (+ Astra)</h3>
-      <div class="meta">Researchers do differently: Codex (cloud, /agents, voice), Agents API + computer use, Astra / Ultrafast on Pro 500, Codex Security Cloud (Daybreak Blue), Bedrock Managed Agents</div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Researcher unlock</span><span>70–85% est.</span></div>
-        <div class="bar"><div class="fill f-r" style="width:78%"></div></div>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Everyday unlock</span><span>30–45% est. ↑</span></div>
-        <div class="bar"><div class="fill f-n" style="width:38%"></div></div>
-      </div>
-      <ul>
-        <li>Everyday: Chat now runs GPT‑6 Sol (paid) / Luna (Free, Go) with Intelligent UI</li>
-        <li>Gap driver: 6.1 Sol / Astra live in Work, Codex &amp; API, not in Chat</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="pill p-claude">Claude Opus 5.5</span> (+ Sonnet / Haiku 5.5)</h3>
-      <div class="meta">Researchers do differently: Claude Code at xhigh/max, Opus→Haiku subagents, fast mode, Batches, CVP / Life Sciences verification, new Max/Team API credits ($100–$500/mo)</div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Researcher unlock</span><span>70–85% est. ↑</span></div>
-        <div class="bar"><div class="fill f-r" style="width:78%"></div></div>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Everyday unlock</span><span>35–50% est.</span></div>
-        <div class="bar"><div class="fill f-n" style="width:42%"></div></div>
-      </div>
-      <ul>
-        <li>Everyday: Sonnet 5.5 on Free; app default effort Medium; higher Pro/Max limits</li>
-        <li>Clearest evidence of the effort gap (Medium vs Max on the Coding Agent Index)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3><span class="pill p-gemini">Gemini 3.8 Flash</span> (Argon gated)</h3>
-      <div class="meta">Researchers do differently: Antigravity agents, Search/Maps grounding, Batch/Flex, Vertex. Argon goes only to Fairwind cyber defenders (no cyber guardrails for that group)</div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Researcher unlock</span><span>55–70% est.</span></div>
-        <div class="bar"><div class="fill f-r" style="width:62%"></div></div>
-      </div>
-      <div class="bar-wrap">
-        <div class="bar-label"><span>Everyday unlock</span><span>45–60% est.</span></div>
-        <div class="bar"><div class="fill f-n" style="width:52%"></div></div>
-      </div>
-      <ul>
-        <li>Everyday: app + AI Mode + Workspace; new Skills (replacing Gems)</li>
-        <li>Narrowest gap on the public model; widest on the ceiling (Argon gated)</li>
-      </ul>
-    </div>
-  </div>
-
-  <h2>How to read the estimates</h2>
-  <table>
-    <thead><tr><th>Factor</th><th>Pushes unlock up</th><th>Pushes unlock down</th></tr></thead>
-    <tbody>
-      <tr><td>Access tier</td><td>API / Max / Pro 500 / agent CLI</td><td>Free chat, lighter default model (Luna, Sonnet)</td></tr>
-      <tr><td>Harness</td><td>Codex, Claude Code, Antigravity, Grok Build, Agents API + CU</td><td>Single-turn chat</td></tr>
-      <tr><td>Effort setting</td><td>xhigh / max (Sonnet 5.5: 68.4% on the Coding Agent Index)</td><td>App defaults (Sonnet 5.5 medium: 45.9%)</td></tr>
-      <tr><td>Operator skill</td><td>Domain expertise, verify loops (Anthropic: experts ~2× success)</td><td>One-shot prompts</td></tr>
-      <tr><td>Gates</td><td>Fairwind / CVP / Life Sciences VP / Daybreak when eligible</td><td>Cyber/bio fallbacks; gated releases (Argon)</td></tr>
-    </tbody>
-  </table>
-
-  <footer>
-    Sources (accessed Oct 10, 2026):
-    <a href="https://x.ai/news/grok-4-7">x.ai Grok 4.7</a> ·
-    <a href="https://docs.x.ai/developers/grok-4-7">docs.x.ai Grok 4.7</a> ·
-    <a href="https://openai.com/index/introducing-gpt-6-1-sol">OpenAI GPT‑6.1 Sol</a> ·
-    <a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">GPT‑6.1 Sol model docs</a> ·
-    <a href="https://openai.com/index/gpt-6-for-everyone/">GPT‑6 for everyone</a> ·
-    <a href="https://openai.com/index/devday-2026-recap/">DevDay 2026 recap</a> ·
-    <a href="https://techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol-says-it-nearly-matches-gpt-6-astra-and-costs-less/">TechCrunch</a> ·
-    <a href="https://www.anthropic.com/claude-opus-5-5">Anthropic Opus 5.5</a> ·
-    <a href="https://www.anthropic.com/claude-sonnet-5-5">Sonnet 5.5</a> ·
-    <a href="https://www.anthropic.com/claude-haiku-5-5">Haiku 5.5</a> ·
-    <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Google Gemini 4 Argon</a> ·
-    <a href="https://arena.ai/leaderboard/text">LMArena Text (Oct 8, 2026)</a> ·
-    <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis leaderboard</a> ·
-    <a href="https://artificialanalysis.ai/articles/claude-opus-5-5">AA Opus 5.5 article</a> ·
-    <a href="https://benchlm.ai/benchmarks/aacodingagents">AA Coding Agent Index (BenchLM mirror, Oct 7)</a> ·
-    <a href="https://cryptobriefing.com/chatgpt-gemini-growth-meta-muse-2-million/">BofA / Sensor Tower Sep data</a> ·
-    <a href="https://runtimewire.com/article/openai-codex-chatgpt-work-40-million-users">Codex + Work 40M</a> ·
-    <a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> ·
-    <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a> ·
-    Carried over from Sep: SpaceX S‑1 (Grok MAU), Reuters / Sensor Tower (Claude MAU)
-  </footer>
+<div class="legend">
+  <span style="--c:var(--grok)"><i></i>xAI</span><span style="--c:var(--openai)"><i></i>OpenAI</span>
+  <span style="--c:var(--claude)"><i></i>Anthropic</span><span style="--c:var(--gemini)"><i></i>Google</span>
 </div>
+
+<details>
+<summary>Sources &amp; caveats</summary>
+<ul>
+<li>Unlock % are Grok Bot estimates from access tier, harness, effort defaults and habits, anchored on Anthropic's Claude Code study (novice ~15% vs expert ~28–33% verified success). No cross‑lab study measures this.</li>
+<li>Moved since Sep 21: OpenAI everyday 25–40 → 30–45 (GPT‑6 default on all tiers incl. Free); Anthropic researcher 65–80 → 70–85 (Opus 5.5 reaches Fable ceiling at Opus price).</li>
+<li>Usage: ChatGPT &gt;1.2B weekly (OpenAI); Gemini app &gt;1B monthly (Google, Aug); Grok ~117M monthly AI‑feature users (SpaceX S‑1, Mar); Claude app ~56M monthly (Reuters/Sensor Tower, Jun). Mobile DAU figures via BofA/Sensor Tower are secondary. Codex + Work "40M active" has no stated window.</li>
+<li>Argon AA 53 / Coding 63.8% shown though not public. Prices: Argon intro $2/$10 (later $4/$20); 3.8 Flash intro $0.75/$3.75; Astra $10/$50. Grok 4.6‑high #72 · 1454 on Arena.</li>
+<li>Vendor benchmark tables treated as claims; LMArena and Artificial Analysis are independent.</li>
+</ul>
+<p>Sources (accessed Oct 10, 2026):
+<a href="https://x.ai/news/grok-4-7">x.ai Grok 4.7</a> · <a href="https://docs.x.ai/developers/grok-4-7">docs.x.ai</a> ·
+<a href="https://openai.com/index/introducing-gpt-6-1-sol">GPT‑6.1 Sol</a> · <a href="https://developers.openai.com/api/docs/models/gpt-6.1-sol">Sol docs</a> ·
+<a href="https://openai.com/index/gpt-6-for-everyone/">GPT‑6 for everyone</a> · <a href="https://openai.com/index/devday-2026-recap/">DevDay recap</a> ·
+<a href="https://techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol-says-it-nearly-matches-gpt-6-astra-and-costs-less/">TechCrunch</a> ·
+<a href="https://www.anthropic.com/claude-opus-5-5">Opus 5.5</a> · <a href="https://www.anthropic.com/claude-sonnet-5-5">Sonnet 5.5</a> · <a href="https://www.anthropic.com/claude-haiku-5-5">Haiku 5.5</a> ·
+<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/">Gemini 4 Argon</a> ·
+<a href="https://arena.ai/leaderboard/text">LMArena Text</a> · <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis</a> ·
+<a href="https://artificialanalysis.ai/articles/claude-opus-5-5">AA Opus 5.5</a> · <a href="https://benchlm.ai/benchmarks/aacodingagents">AA Coding Agent (BenchLM)</a> ·
+<a href="https://cryptobriefing.com/chatgpt-gemini-growth-meta-muse-2-million/">BofA/Sensor Tower</a> · <a href="https://runtimewire.com/article/openai-codex-chatgpt-work-40-million-users">Codex + Work 40M</a> ·
+<a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> · <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a></p>
+</details>
+
+<footer><span>Past editions:</span><a href="archive/2026-09-21.html">Sep 21, 2026</a><a href="archive/2026-10-10.html">Oct 10, 2026 (full text)</a></footer>
+</div>
+
+<script>
+const C={x:'#a78bfa',o:'#34d399',a:'#fbbf24',g:'#60a5fa'};
+const fade=(h,a)=>h+Math.round(a*255).toString(16).padStart(2,'0');
+Chart.defaults.color='#8b94a5';Chart.defaults.borderColor='#232a36';
+Chart.defaults.font.family='Inter,system-ui,sans-serif';Chart.defaults.font.size=11;
+Chart.defaults.maintainAspectRatio=false;Chart.defaults.plugins.legend.display=false;
+const valLabels={id:'vl',afterDatasetsDraw(ch,_,o){if(!o||!o.on)return;const c=ch.ctx;c.save();c.font='600 11px Inter,system-ui';c.fillStyle='#eef0f4';
+ ch.data.datasets.forEach((ds,i)=>{if(ds.noLabel)return;ch.getDatasetMeta(i).data.forEach((el,j)=>{const v=ds.data[j];const t=(o.fmt||String)(Array.isArray(v)?v[1]:v,j);
+ if(ch.options.indexAxis==='y'){c.textAlign='left';c.textBaseline='middle';c.fillText(t,el.x+6,el.y);}else{c.textAlign='center';c.textBaseline='bottom';c.fillText(t,el.x,el.y-3);}});});c.restore();}};
+Chart.register(valLabels);
+
+// 1 Arena
+new Chart(arena,{type:'bar',data:{labels:['Gemini 4 Argon*','Claude Opus 5.5','Gemini 3.8 Flash*','GPT‑6.1 Sol','GPT‑6 Astra','Grok 4.6','Grok 4.7'],
+ datasets:[{data:[1525,1507,1497,1484,1475,1454,1443],backgroundColor:[C.g,C.a,fade(C.g,.6),C.o,fade(C.o,.6),fade(C.x,.6),C.x],borderRadius:6,barThickness:18}]},
+ options:{indexAxis:'y',layout:{padding:{right:70}},scales:{x:{min:1420,max:1540,grid:{color:'#1b212c'}},y:{grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{vl:{on:true,fmt:(v,j)=>['#1','#2','#8','#21','#35','#72','#90'][j]+' · '+v}}}});
+
+// 2 AA grouped
+new Chart(aa,{type:'bar',data:{labels:['Opus 5.5','Argon','Astra','6.1 Sol','Grok 4.7','3.8 Flash'],
+ datasets:[{label:'Intelligence',data:[58,53,53,52,46,41],backgroundColor:[C.a,C.g,C.o,C.o,C.x,C.g],borderRadius:5},
+ {label:'Coding Agent %',data:[66.0,63.8,61.6,62.9,56.3,41.9],backgroundColor:[C.a,C.g,C.o,C.o,C.x,C.g].map(c=>fade(c,.35)),borderColor:[C.a,C.g,C.o,C.o,C.x,C.g],borderWidth:1.5,borderRadius:5}]},
+ options:{scales:{y:{min:0,max:75,grid:{color:'#1b212c'}},x:{grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{legend:{display:true,position:'top',align:'end',labels:{boxWidth:10,boxHeight:10}},vl:{on:true,fmt:v=>v}}}});
+
+// 3 price scatter
+const pts=[['Grok 4.7',6,46,C.x],['GPT‑6.1 Sol',10,52,C.o],['GPT‑6 Astra',50,53,C.o],['Opus 5.5',20,58,C.a],['Argon (intro)',10,53,C.g],['3.8 Flash',3.75,41,C.g]];
+new Chart(price,{type:'scatter',data:{datasets:pts.map(p=>({label:p[0],data:[{x:p[1],y:p[2]}],backgroundColor:p[3],borderColor:'#0b0d12',borderWidth:2,pointRadius:9,pointHoverRadius:11}))},
+ options:{layout:{padding:{right:20,top:10}},scales:{x:{type:'logarithmic',min:2,max:80,title:{display:true,text:'Output $/1M tokens'},ticks:{callback:v=>[2,5,10,20,50].includes(v)?'$'+v:''},grid:{color:'#1b212c'}},
+ y:{min:38,max:62,title:{display:true,text:'AA Intelligence'},grid:{color:'#1b212c'}}},
+ plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': $'+c.raw.x+' · '+c.raw.y}}}},
+ plugins:[{id:'pl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 11px Inter,system-ui';c.fillStyle='#eef0f4';
+  ch.data.datasets.forEach((d,i)=>{const e=ch.getDatasetMeta(i).data[0];const up=d.label.startsWith('Argon'),dn=d.label.includes('Astra');c.textAlign=e.x>ch.chartArea.right-80?'right':'left';
+  c.fillText(d.label,e.x+(c.textAlign==='right'?-13:13),e.y+(up?-12:dn?20:4));});c.restore();}}]});
+
+// 4 usage
+const hatch=col=>{const p=document.createElement('canvas');p.width=p.height=8;const x=p.getContext('2d');x.fillStyle=fade(col,.25);x.fillRect(0,0,8,8);x.strokeStyle=col;x.lineWidth=2;x.beginPath();x.moveTo(0,8);x.lineTo(8,0);x.stroke();return x.createPattern(p,'repeat');};
+new Chart(usage,{type:'bar',data:{labels:[['ChatGPT','weekly'],['Gemini app','monthly'],['Grok AI features','monthly · Mar'],['Claude app','monthly · Jun']],
+ datasets:[{data:[1200,1000,117,56],backgroundColor:[C.o,hatch(C.g),hatch(C.x),hatch(C.a)],borderColor:[C.o,C.g,C.x,C.a],borderWidth:1.5,borderRadius:6,barThickness:22}]},
+ options:{indexAxis:'y',layout:{padding:{right:60}},scales:{x:{max:1300,grid:{color:'#1b212c'},ticks:{callback:v=>v>=1000?(v/1000)+'B':v+'M'}},y:{grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{vl:{on:true,fmt:(v,j)=>['>1.2B','>1B','~117M','~56M'][j]}}}});
+
+// 5 unlock dumbbell (floating bars)
+const labs=['Grok 4.7','OpenAI (Sol)','Anthropic (Opus 5.5)','Google (3.8 Flash)'],cols=[C.x,C.o,C.a,C.g];
+new Chart(unlock,{type:'bar',data:{labels:[['Grok 4.7'],['OpenAI','6.1 Sol'],['Anthropic','Opus 5.5'],['Google','3.8 Flash']],datasets:[
+ {label:'Everyday',data:[[30,45],[30,45],[35,50],[45,60]],backgroundColor:cols.map(c=>fade(c,.3)),borderColor:cols,borderWidth:1.5,borderRadius:20,barThickness:12},
+ {label:'Researcher',data:[[60,75],[70,85],[70,85],[55,70]],backgroundColor:cols,borderRadius:20,barThickness:12}]},
+ options:{indexAxis:'y',layout:{padding:{right:36}},scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%'},grid:{color:'#1b212c'}},y:{stacked:true,grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{legend:{display:true,position:'top',align:'end',labels:{boxWidth:10,boxHeight:10}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw[0]+'–'+c.raw[1]+'% (est.)'}}}},
+ plugins:[{id:'rl',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 10px Inter,system-ui';c.fillStyle='#eef0f4';c.textBaseline='middle';
+  ch.data.datasets.forEach((d,i)=>ch.getDatasetMeta(i).data.forEach((e,j)=>{const r=d.data[j];const lo=Math.min(e.x,e.base),hi=Math.max(e.x,e.base);if(i===0){c.textAlign='right';c.fillText(r[0]+'–'+r[1],lo-6,e.y);}else{c.textAlign='left';c.fillText(r[0]+'–'+r[1],hi+6,e.y);}}));c.restore();}}]});
+
+// 6 effort
+new Chart(effort,{type:'bar',data:{labels:['Sonnet 5.5','GPT‑6.1 Sol'],datasets:[
+ {label:'Default/low',data:[45.9,57.2],backgroundColor:[fade(C.a,.35),fade(C.o,.35)],borderColor:[C.a,C.o],borderWidth:1.5,borderRadius:5},
+ {label:'Max/xhigh',data:[68.4,62.9],backgroundColor:[C.a,C.o],borderRadius:5}]},
+ options:{scales:{y:{min:0,max:80,ticks:{callback:v=>v+'%'},grid:{color:'#1b212c'}},x:{grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,boxHeight:10}},vl:{on:true,fmt:v=>v+'%'}}}});
+
+// 7 context
+new Chart(ctx,{type:'bar',data:{labels:['GPT‑6.1 Sol','Claude Opus 5.5','Grok 4.7'],datasets:[{data:[1050,1000,500],backgroundColor:[C.o,C.a,C.x],borderRadius:6,barThickness:18}]},
+ options:{indexAxis:'y',layout:{padding:{right:50}},scales:{x:{min:0,max:1200,ticks:{callback:v=>v>=1000?(v/1000)+'M':v+'k'},grid:{color:'#1b212c'}},y:{grid:{display:false},ticks:{color:'#eef0f4'}}},
+ plugins:{vl:{on:true,fmt:v=>v>=1000?(v/1000)+'M':v+'k'}}}});
+</script>
 </body>
 </html>
