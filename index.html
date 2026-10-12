@@ -388,7 +388,7 @@ const DEF={'Capability overhang':'The gap between what a model can do at its bes
  btn.onclick=openG;md.addEventListener('click',e=>{if(e.target===md||e.target.id==='gx')closeG();});
 })();
 
-// chart "About" modal — CHART_INFO keyed by data-info id; refresh routine updates these texts
+// chart header hover popovers — CHART_INFO keyed by data-info id; refresh routine updates these texts
 const CHART_INFO={
 arena:{t:'Human preference · LMArena Text',q:'Which model do people prefer when they compare answers blind?',r:'Longer bar = better rank. Colour = lab. * = preliminary rank.',s:'LMArena Text leaderboard, Oct 8, 2026.',c:'Measures taste in chat answers, not accuracy or agent skill. Close ranks are within noise.'},
 aa:{t:'Independent intelligence & coding',q:'How smart is each model on hard, independent tests?',r:'Solid bar = AA Intelligence Index (0–100). Faded bar = Coding Agent Index (%).',s:'Artificial Analysis, Oct 2026 (best effort setting).',c:'Scores use max effort, which most chat users never switch on.'},
@@ -406,19 +406,29 @@ lPrice:{t:'Price vs intelligence · all',q:'Who gives the most capability per do
 table:{t:'Capability matrix',q:'All the numbers in one place.',r:'One row per model. Tap a column header to sort; use the filters to narrow by group. Colours rank cells.',s:'LMArena (Oct 8), Artificial Analysis (Oct 12), provider pages.',c:'Dash = no public figure. * = partial estimate.'},
 harness:{t:'Harnesses & coding agents',q:'Which tools wrap the models, and how big are they?',r:'One card per tool, with the models it runs on and reported revenue or users.',s:'Company posts and press reports (dates in Sources).',c:'Many figures are second‑hand estimates.'},
 mx:{t:'Who runs on whose model',q:'Which harness depends on which lab?',r:'Rows = tools, columns = model makers. Filled dot = supported; ring = own model.',s:'Product docs and settings pages, Oct 2026.',c:'Model lists change often; defaults aren’t shown.'}};
-(function(){const st=document.createElement('style');st.textContent=`.ht{all:unset;min-width:0;cursor:pointer;font:inherit;color:inherit;text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,currentColor 40%,transparent);text-underline-offset:4px}.ht:hover{text-decoration-color:currentColor}.ht:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
-#cim{position:fixed;inset:0;z-index:80;background:#000a;display:grid;place-items:center;padding:16px}#cim[hidden]{display:none}#cim .cb{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:460px;width:100%;padding:18px 20px;max-height:84vh;overflow:auto}#cim .ch{display:flex;justify-content:space-between;align-items:center;gap:10px}#cim h3{margin:0;font-size:1.1rem;font-weight:650}#cim dl{margin:12px 0 0}#cim dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:10px}#cim dd{margin:2px 0 0;font-size:.88rem;line-height:1.45}#cix{font:inherit;background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;width:30px;height:30px;cursor:pointer}`;document.head.appendChild(st);
-const m=document.createElement('div');m.id='cim';m.hidden=true;m.innerHTML='<div class="cb" role="dialog" aria-modal="true" aria-labelledby="cit"><div class="ch"><h3 id="cit"></h3><button id="cix" aria-label="Close">✕</button></div><dl id="cid"></dl></div>';document.body.appendChild(m);
-let opener=null;const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-const open=(k,b)=>{const d=CHART_INFO[k];if(!d)return;opener=b;document.getElementById('cit').textContent=d.t;
- document.getElementById('cid').innerHTML=[['What it answers',d.q],['How to read it',d.r],['Source & date',d.s],['Caveats',d.c]].map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join('');m.hidden=false;document.getElementById('cix').focus();};
-const close=()=>{if(m.hidden)return;m.hidden=true;opener&&opener.focus();};
-document.querySelectorAll('h2[data-info]').forEach(h=>{const k=h.dataset.info;const bt=document.createElement('button');bt.className='ht';bt.type='button';bt.setAttribute('aria-haspopup','dialog');bt.setAttribute('aria-label','About this chart: '+((CHART_INFO[k]||{}).t||''));bt.title='About this chart';
+(function(){const st=document.createElement('style');st.textContent=`.ht{all:unset;min-width:0;cursor:help;font:inherit;color:inherit;text-decoration:underline dotted;text-decoration-color:color-mix(in srgb,currentColor 40%,transparent);text-underline-offset:4px}.ht:hover,.ht[aria-expanded=true]{text-decoration-color:currentColor}.ht:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+#hpop{position:absolute;z-index:60;background:#1c2230;border:1px solid #334055;border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--text);box-shadow:0 10px 30px #0009;font-family:inherit;font-weight:400;text-transform:none;letter-spacing:normal;line-height:1.4}#hpop[hidden]{display:none}#hpop b{font-size:.8rem}#hpop dl{margin:2px 0 0}#hpop dt{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#8f9bb0;margin-top:7px}#hpop dd{margin:1px 0 0;color:#c7cedb}`;document.head.appendChild(st);
+const pop=document.createElement('div');pop.id='hpop';pop.setAttribute('role','tooltip');pop.hidden=true;document.body.appendChild(pop);
+const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));const hov=()=>matchMedia('(hover:hover)').matches;
+let cur=null,ot=0,ct=0,ft=0;
+const show=b=>{clearTimeout(ot);clearTimeout(ct);const d=CHART_INFO[b.dataset.info];if(!d)return;if(cur&&cur!==b)cur.setAttribute('aria-expanded','false');cur=b;
+ pop.innerHTML=`<b>${esc(d.t)}</b><dl>${[['What it answers',d.q],['How to read it',d.r],['Source & date',d.s],['Caveats',d.c]].map(x=>`<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join('')}</dl>`;
+ const w=Math.min(360,innerWidth-20);pop.style.width=w+'px';pop.hidden=false;const r=b.getBoundingClientRect(),h=pop.offsetHeight;
+ let x=r.left+scrollX;x=Math.max(10+scrollX,Math.min(x,scrollX+innerWidth-w-10));let y=r.bottom+scrollY+6;
+ if(r.bottom+6+h>innerHeight-8&&r.top-6-h>8)y=r.top+scrollY-6-h;pop.style.left=x+'px';pop.style.top=y+'px';b.setAttribute('aria-expanded','true');};
+const hide=()=>{clearTimeout(ot);clearTimeout(ct);pop.hidden=true;if(cur)cur.setAttribute('aria-expanded','false');cur=null;};
+const later=()=>{clearTimeout(ot);clearTimeout(ct);ct=setTimeout(hide,180);};
+document.querySelectorAll('h2[data-info]').forEach(h=>{const k=h.dataset.info;const bt=document.createElement('button');bt.className='ht';bt.type='button';bt.dataset.info=k;bt.setAttribute('aria-expanded','false');bt.setAttribute('aria-describedby','hpop');bt.setAttribute('aria-label','About this chart: '+((CHART_INFO[k]||{}).t||''));
  const kids=[...h.childNodes];for(let i=0;i<kids.length;i++){const n=kids[i];if(n.nodeType===1&&n.tagName==='SPAN'&&i>0&&!n.classList.contains('term'))break;bt.appendChild(n);}
  bt.querySelectorAll('.term').forEach(t=>t.replaceWith(document.createTextNode(t.textContent)));h.insertBefore(bt,h.firstChild);
- bt.addEventListener('click',e=>{e.stopPropagation();open(k,bt);});});
-m.addEventListener('click',e=>{if(e.target===m||e.target.id==='cix')close();});
-document.addEventListener('keydown',e=>{if(m.hidden)return;if(e.key==='Escape'){e.stopPropagation();close();}if(e.key==='Tab'){const f=[...m.querySelectorAll('button,a[href]')];if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}},true);
+ bt.addEventListener('mouseenter',()=>{if(!hov())return;clearTimeout(ct);if(cur===bt)return;clearTimeout(ot);ot=setTimeout(()=>show(bt),150);});
+ bt.addEventListener('mouseleave',()=>{if(hov())later();});
+ bt.addEventListener('focus',()=>{ft=Date.now();show(bt);});bt.addEventListener('blur',e=>{if(!(e.relatedTarget&&pop.contains(e.relatedTarget)))later();});
+ bt.addEventListener('click',e=>{e.stopPropagation();if(cur===bt&&Date.now()-ft>400&&!hov())hide();else show(bt);});});
+pop.addEventListener('mouseenter',()=>clearTimeout(ct));pop.addEventListener('mouseleave',()=>{if(hov())later();});
+document.addEventListener('click',e=>{if(!e.target.closest('#hpop,.ht'))hide();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cur){const b=cur;hide();b.blur();}});
+addEventListener('resize',()=>{if(cur)show(cur);});
 })();
 </script>
 </body>
