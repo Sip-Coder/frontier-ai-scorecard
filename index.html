@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Frontier AI Scorecard — Oct 10, 2026</title>
+<title>Frontier AI Scorecard — Oct 12, 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0b0d12;--card:#141821;--line:#232a36;--text:#eef0f4;--muted:#8b94a5;--accent:#7dd3fc;
@@ -49,12 +49,33 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 .aidb .labs{margin-bottom:0}.aidb ul{margin:8px 0;padding-left:16px;font-size:.8rem}.aidb li{margin:3px 0}.aidb .ep{font-size:.72rem;color:var(--muted)}
 @media (max-width:900px){.labs{grid-template-columns:repeat(2,minmax(0,1fr))}.s6,.s4,.s8{grid-column:span 12}}
 @media (max-width:480px){.aidb .labs{grid-template-columns:1fr}.wrap{padding:24px 14px 40px}.lab{padding:12px}.lab .m{font-size:.95rem}.cv{height:240px}}
+.land{margin-top:44px;padding-top:26px;border-top:1px solid var(--line)}.lh{margin-bottom:12px}
+.gchips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}.gchips span{font-size:.75rem;display:flex;gap:6px;align-items:center;color:var(--muted)}.gchips i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+.gapnums{display:flex;gap:10px;margin-top:8px}.gapnums div{flex:1;background:#10141c;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.gapnums b{font-size:1.4rem;color:#2dd4bf;display:block}.gapnums span{font-size:.7rem;color:var(--muted)}
+.tbar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.tbar button{font:inherit;font-size:.72rem;background:#10141c;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer}.tbar button.on{color:#0b0d12;background:var(--c,#eef0f4);border-color:transparent;font-weight:650}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:.76rem}th{position:sticky;top:0;background:#10141c;text-align:left;padding:8px;color:var(--muted);font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--line)}th.s::after{content:" ▾"}th.s.up::after{content:" ▴"}
+td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{border-left:3px solid var(--c);font-weight:650}td.h{text-align:center;font-weight:650;color:#0b0d12}td.na{color:#566074;text-align:center}
+.st{font-size:.66rem;padding:2px 7px;border-radius:5px;background:#1b212c}.st.g{background:#3a1f10;color:var(--warn)}.st.n{background:#3b1520;color:#fda4af}
+.sh{font-size:1.05rem;margin:26px 0 10px}.sh span{color:var(--muted);font-weight:500;font-size:.75rem;margin-left:6px}
+.hgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.hc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;border-top:3px solid #f97316}
+.hc .n{font-weight:700}.hc .b{font-size:.68rem;color:var(--muted)}.hc .k{font-size:1.25rem;font-weight:750;margin-top:8px;color:#fdba74}.hc .kl{font-size:.68rem;color:var(--muted)}.hc .om{font-size:.7rem;margin-top:8px}.hc .om b{color:#eef0f4}
+.mx{min-width:760px}.mx td,.mx th{text-align:center}.mx td:first-child,.mx th:first-child{text-align:left}.mx .p{color:#fdba74}.mx .s{color:#566074}
+@media (max-width:900px){.hgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.term{border-bottom:1px dotted currentColor;cursor:help;outline:none}.term::after{content:"i";display:inline-grid;place-items:center;width:11px;height:11px;margin-left:2px;border-radius:50%;border:1px solid currentColor;font:700 8px/1 Inter,system-ui;vertical-align:2px;opacity:.65}
+.term:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+#gpop{position:absolute;z-index:60;background:#1c2230;border:1px solid #334055;border-radius:10px;padding:10px 12px;font-size:.78rem;color:var(--text);box-shadow:0 10px 30px #0009}#gpop b{font-size:.8rem}#gpop p{margin:4px 0 0;color:#c7cedb}
+#gbtn{position:fixed;top:14px;right:14px;z-index:50;font:600 .78rem Inter,system-ui;color:#0b0d12;background:var(--accent);border:0;border-radius:999px;padding:7px 14px;cursor:pointer;box-shadow:0 4px 14px #0008}
+#gmod{position:fixed;inset:0;z-index:70;background:#000a;display:grid;place-items:center;padding:16px}#gmod[hidden]{display:none}.gbox{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:620px;width:100%;max-height:84vh;overflow:auto;padding:16px 20px}
+.ghd{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-16px;background:var(--card);padding:6px 0}.ghd h2{margin:0;font-size:1.1rem}#gx{background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;width:30px;height:30px;cursor:pointer}
+.gbox dt{font-weight:650;margin-top:12px;font-size:.88rem}.gbox dd{margin:3px 0 0;color:var(--muted);font-size:.8rem}
+@media (max-width:480px){#gbtn{top:auto;bottom:16px;right:14px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <div><h1>Frontier AI Scorecard</h1><div class="ed">Edition Oct 10, 2026 · next refresh Oct 15</div></div>
+  <div><h1>Frontier AI Scorecard</h1><div class="ed">Edition Oct 12, 2026 · next refresh Oct 15 · <a href="#landscape">Full landscape ↓</a></div></div>
   <span class="badge">⚠ Unlock % = estimates, not measured</span>
 </header>
 
@@ -99,6 +120,26 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 </div>
 </section>
 
+<section class="land" id="landscape">
+<div class="lh"><h1 style="font-size:1.6rem">Full landscape</h1><div class="ed">Every lab, open‑weight model and coding harness · LMArena Oct 8 · Artificial Analysis Oct 12</div></div>
+<div class="gchips" id="gchips"></div>
+<section class="grid">
+  <div class="card s12"><h2>Human preference · every lab's best <span class="ed" style="margin:0">LMArena Elo</span></h2><div class="cv" style="height:620px"><canvas id="lArena"></canvas></div><p class="cap">Best‑ranked current model per company. * preliminary. Labels = overall rank of 414.</p></div>
+  <div class="card s6"><h2>Intelligence · every lab's best</h2><div class="cv" style="height:560px"><canvas id="lAA"></canvas></div><p class="cap">Artificial Analysis Intelligence Index. * = AA partial estimate.</p></div>
+  <div class="card s6"><h2>Open vs closed gap</h2><div class="cv" style="height:250px"><canvas id="lGap"></canvas></div>
+   <div class="gapnums"><div><b>‑19</b><span>Elo · Kimi K3 vs Opus 5.5</span></div><div><b>‑12</b><span>AA pts · MiMo‑V2.6‑Pro vs Opus 5.5</span></div></div>
+   <p class="cap">Best open‑weight vs best closed, today. All 3 top open models are Chinese.</p>
+   <h2 style="margin-top:14px">Price vs intelligence · all</h2><div class="cv" style="height:300px"><canvas id="lPrice"></canvas></div><p class="cap">Output $/1M (log). Up‑left = better value.</p></div>
+  <div class="card s12"><h2>Capability matrix <span class="ed" style="margin:0">tap a header to sort</span></h2>
+   <div class="tbar" id="tfilter"></div>
+   <div class="tw"><table id="tbl"><thead><tr><th data-k="co">Company</th><th data-k="m">Latest model</th><th data-k="rel">Released</th><th data-k="open">Weights</th><th data-k="cty">Country</th><th data-k="elo">Arena Elo</th><th data-k="aa">AA Intel.</th><th data-k="code">Coding Agent</th><th data-k="out">$ in/out</th><th data-k="ctx">Context</th><th data-k="st">Status</th></tr></thead><tbody></tbody></table></div>
+   <p class="cap">Colour = relative strength (green better). Coding Agent = AA Coding Agent Index, only published for the big four. — = no public number.</p></div>
+</section>
+<h2 class="sh">Harnesses &amp; coding agents <span>built on others' models · own model where they have one</span></h2>
+<div class="hgrid" id="hgrid"></div>
+<div class="card" style="margin-top:14px"><h2>Who runs on whose model</h2><div class="tw"><table id="mx" class="mx"></table></div><p class="cap">● primary / own · ○ supported or routed. From vendor docs and reporting; Bolt and v0 stacks not officially disclosed.</p></div>
+</section>
+
 <details>
 <summary>Sources &amp; caveats</summary>
 <ul>
@@ -107,6 +148,9 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 <li>Usage: ChatGPT &gt;1.2B weekly (OpenAI); Gemini app &gt;1B monthly (Google, Aug); Grok ~117M monthly AI‑feature users (SpaceX S‑1, Mar); Claude app ~56M monthly (Reuters/Sensor Tower, Jun). Mobile DAU figures via BofA/Sensor Tower are secondary. Codex + Work "40M active" has no stated window.</li>
 <li>Argon AA 53 / Coding 63.8% shown though not public. Prices: Argon intro $2/$10 (later $4/$20); 3.8 Flash intro $0.75/$3.75; Astra $10/$50. Grok 4.6‑high #72 · 1454 on Arena.</li>
 <li>AI Daily Brief notes paraphrase Nathaniel Whittemore’s episode transcripts (aidailybrief.ai, Sep 22 – Oct 1), incl. reactions he quoted; commentary, not data.</li>
+<li>Full landscape (Oct 12): one row per company's latest/best model. Arena = LMArena Text Oct 8; AA = Artificial Analysis Intelligence Index Oct 12 (best effort setting). * = AA partial estimate. Kimi K3 &amp; Hy3 counted open‑weight per AA/licence. Mistral Large 4 is a proprietary preview. Microsoft MAI‑Thinking‑1, ByteDance Seed, Baidu ERNIE AA, Perplexity Sonar and SSI have no public text‑leaderboard score. Microsoft's strongest public ranks are in images (MAI‑Image‑2.6 #2 text‑to‑image Arena, vendor‑reported).</li>
+<li>SSI: no model, paper or API as of Oct 2026; $32B valuation (Apr 2025 round) and ~$5B Nvidia investment (Jul 27, Bloomberg‑reported size). Rumoured August model did not ship. Thinking Machines: Inkling (975B/41B active, open weights, Jul 15) + Tinker fine‑tuning platform. Perplexity retired Sonar Chat Completions Sep 27; Agent API routes to OpenAI, Anthropic, Google, xAI, Z.AI, Moonshot, NVIDIA plus Sonar. ARR &gt;$450M (Mar, FT via secondary tracker).</li>
+<li>Harness figures are mixed quality: official = Claude Code &gt;$2.5B run‑rate (Feb 12), Codex 5M+ weekly (Jun 2). Secondhand/estimates = Cursor ~$4B (Jun), Cognition ~$1B (Sep), Replit ~$525M (Apr), v0 6M+ users, OpenClaw 3.2M MAU (SimilarWeb est.). Claude Code ~$15B “tracked ARR” is a third‑party estimate, not shown. Lovable &gt;$600M ARR via TechCrunch. Bolt $40M is Mar 2025, no newer figure. Lovable/Bolt model stacks are third‑party reporting. Hermes = Nous Research’s Hermes Agent (open source) + Hermes 4 models.</li>
 <li>Vendor benchmark tables treated as claims; LMArena and Artificial Analysis are independent.</li>
 </ul>
 <p>Sources (accessed Oct 10, 2026):
@@ -119,7 +163,7 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 <a href="https://arena.ai/leaderboard/text">LMArena Text</a> · <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis</a> ·
 <a href="https://artificialanalysis.ai/articles/claude-opus-5-5">AA Opus 5.5</a> · <a href="https://benchlm.ai/benchmarks/aacodingagents">AA Coding Agent (BenchLM)</a> ·
 <a href="https://cryptobriefing.com/chatgpt-gemini-growth-meta-muse-2-million/">BofA/Sensor Tower</a> · <a href="https://runtimewire.com/article/openai-codex-chatgpt-work-40-million-users">Codex + Work 40M</a> ·
-<a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> · <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a> · <a href="https://aidailybrief.ai">The AI Daily Brief</a></p>
+<a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> · <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a> · <a href="https://aidailybrief.ai">The AI Daily Brief</a> · <a href="https://research.meta.ai/blog/introducing-muse-spark-1-3">Muse Spark 1.3</a> · <a href="https://microsoft.ai/news/building-a-hillclimbing-machine-launching-seven-new-mai-models/">MAI models</a> · <a href="https://microsoft.ai/news/pushing-the-quality-cost-frontier-with-mai-image-2-6/">MAI‑Image‑2.6</a> · <a href="https://thinkingmachines.ai/news/introducing-inkling/">Inkling</a> · <a href="https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/">Tinker pricing</a> · <a href="https://nvidianews.nvidia.com/news/ilya-sutskevers-safe-superintelligence-inc-and-nvidia-announce-long-term-strategic-partnership">SSI × NVIDIA</a> · <a href="https://thesuperintelligencenews.com/articles/safe-superintelligence">SSI tracker</a> · <a href="https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/overview">Perplexity Agent API</a> · <a href="https://axis-intelligence.com/wp-content/dashboard/perplexity-statistics-dashboard.html">Perplexity stats</a> · <a href="https://github.com/openclaw/openclaw">OpenClaw</a> · <a href="https://agentleaderboards.com/frameworks.html">Agent framework stars</a> · <a href="https://github.com/NousResearch/Hermes-Agent">Hermes Agent</a> · <a href="https://cursor.com/blog/composer-2">Composer 2</a> · <a href="https://qai.io/finance/companies/cursor">Cursor ARR</a> · <a href="https://replit.com/blog/replit-raises-400-million-dollars">Replit</a> · <a href="https://valueaddvc.com/blog/how-does-replit-make-money-525m-arr-9b-valuation-and-the-ai-agent-business-model-explained">Replit ARR est.</a> · <a href="https://replit.com/blog/free-the-models">Replit models</a> · <a href="https://techcrunch.com/2026/09/24/lovables-annualized-revenue-crosses-600m-as-vibe-coding-takes-off/">Lovable ARR</a> · <a href="https://quantslant.com/lovable-pricing-credits-comparison-2026/">Lovable models</a> · <a href="https://presenc.ai/research/claude-code-usage-statistics-2026">Claude Code stats</a> · <a href="https://www.latent.space/p/ainews-codex-usage-up-10x-in-6-months">Codex users</a> · <a href="https://sandpczone.com/cognition-ai-1b-arr">Cognition ARR</a> · <a href="https://cognition.com/blog/introducing-devin-desktop">Devin Desktop</a> · <a href="https://www.getpanto.ai/blog/bolt-new-statistics">Bolt stats</a> · <a href="https://topaitracker.com/comparisons/2026-08-12-v0-vs-bolt-new-ai-web-app-builder-head-to-head/">v0 users</a></p>
 </details>
 
 <footer><span>Past editions:</span><a href="archive/2026-09-21.html">Sep 21, 2026</a><a href="archive/2026-10-10.html">Oct 10, 2026 (full text)</a></footer>
@@ -187,6 +231,141 @@ new Chart(effort,{type:'bar',data:{labels:['Sonnet 5.5','GPT‑6.1 Sol'],dataset
 new Chart(ctx,{type:'bar',data:{labels:['GPT‑6.1 Sol','Claude Opus 5.5','Grok 4.7'],datasets:[{data:[1050,1000,500],backgroundColor:[C.o,C.a,C.x],borderRadius:6,barThickness:18}]},
  options:{indexAxis:'y',layout:{padding:{right:50}},scales:{x:{min:0,max:1200,ticks:{callback:v=>v>=1000?(v/1000)+'M':v+'k'},grid:{color:'#1b212c'}},y:{grid:{display:false},ticks:{color:'#eef0f4'}}},
  plugins:{vl:{on:true,fmt:v=>v>=1000?(v/1000)+'M':v+'k'}}}});
+// ===== Full landscape =====
+const G={x:['xAI',C.x],o:['OpenAI',C.o],a:['Anthropic',C.a],g:['Google',C.g],big:['Big tech','#fb7185'],cn:['China','#ef4444'],op:['Open‑weight (West)','#2dd4bf'],nl:['New labs','#e2e8f0'],hn:['Harnesses','#f97316']};
+// g, company, model, released, weights, country, rank, elo, aa, code, $in, $out, ctx(k), status
+const M=[
+['a','Anthropic','Claude Opus 5.5','Sep 22','Closed','US',2,1507,58,66.0,4,20,1000,'Live'],
+['o','OpenAI','GPT‑6.1 Sol','Sep 29','Closed','US',21,1484,52,62.9,2,10,1050,'Live'],
+['o','OpenAI','GPT‑6 Astra','—','Closed','US',35,1475,53,61.6,10,50,1000,'Live'],
+['g','Google','Gemini 4 Argon','Sep 30','Closed','US',1,1525,53,63.8,2,10,1000,'Gated','p'],
+['g','Google','Gemini 3.8 Flash','—','Closed','US',8,1497,41,41.9,0.75,3.75,1000,'Live','p'],
+['x','xAI','Grok 4.7','Sep 21','Closed','US',90,1443,46,56.3,2,6,500,'Live'],
+['big','Meta','Muse Spark 1.3','Sep 2','Closed','US',9,1494,48,null,1.25,4.25,1000,'Live'],
+['big','Microsoft','MAI‑Thinking‑1','Jun','Closed','US',null,null,null,null,null,null,null,'Live'],
+['big','Amazon','Nova 2.0 Pro (prev.)','—','Closed','US',null,null,'14*',null,null,null,256,'Preview'],
+['cn','Moonshot','Kimi K3','—','Open','CN',16,1488,44,null,null,null,1050,'Live'],
+['cn','Alibaba','Qwen3.8 Max','—','Closed','CN',22,1483,45,null,2,6,984,'Live'],
+['cn','Xiaomi','MiMo‑V2.6‑Pro','—','Open','CN',26,1480,46,null,0.43,0.87,1000,'Live'],
+['cn','Zhipu (Z.ai)','GLM‑5.3','—','Open','CN',27,1478,45,null,1.40,4.40,1000,'Live'],
+['cn','DeepSeek','V4.1 Flash','—','Open','CN',39,1475,39,null,0.30,1.20,1000,'Live'],
+['cn','Baidu','ERNIE 5.1','—','Closed','CN',49,1467,null,null,0.56,2.54,119,'Live'],
+['cn','ByteDance','Dola Seed 2.0 Pro','—','Closed','CN',65,1456,null,null,null,null,null,'Live'],
+['cn','Tencent','Hy3','—','Open','CN',73,1454,25,null,0.13,0.53,256,'Live'],
+['cn','StepFun','Step 5 Preview','—','Closed','CN',83,1447,44,null,1,2.70,1000,'Preview'],
+['cn','MiniMax','MiniMax‑M3','—','Open','CN',96,1440,29,null,0.30,1.20,1000,'Live'],
+['op','Google','Gemma 4 31B','—','Open','US',75,1452,15,null,0.99,1.49,256,'Live'],
+['op','NVIDIA','Nemotron 3 Ultra','—','Open','US',120,1426,23,null,null,null,262,'Live'],
+['op','Mistral','Large 4 (prev.)','—','Closed','FR',115,1429,38,null,0.68,2.09,524,'Preview'],
+['op','OpenAI','gpt‑oss‑120b','—','Open','US',213,1352,12,null,0.15,0.60,131,'Live'],
+['op','Meta','Llama 4 Maverick','—','Open','US',247,1327,'10*',null,0.63,1.80,1000,'Legacy'],
+['op','Nous Research','Hermes 4 405B','—','Open','US',null,null,'7*',null,null,null,128,'Live'],
+['nl','Thinking Machines','Inkling','Jul 15','Open','US',95,1441,25,null,1,4.05,1000,'Live'],
+['nl','Perplexity','Sonar (→ Agent API)','—','Closed','US',null,null,null,null,null,null,null,'Routes others'],
+['nl','SSI','No public model','—','—','US',null,null,null,null,null,null,null,'None']];
+const gc=k=>G[k][1];
+document.getElementById('gchips').innerHTML=Object.keys(G).map(k=>`<span style="--c:${gc(k)}"><i></i>${G[k][0]}</span>`).join('');
+const num=v=>typeof v==='string'?parseFloat(v):v;
+// master arena (best per company)
+const best={};M.filter(r=>r[7]).forEach(r=>{const key=r[1]+(r[0]==='op'?'·o':'');if(!best[key]||r[7]>best[key][7])best[key]=r;});
+const ar=Object.values(best).sort((a,b)=>b[7]-a[7]);
+new Chart(lArena,{type:'bar',data:{labels:ar.map(r=>r[1]+' · '+r[2]+(r[14]?'*':'')),datasets:[{data:ar.map(r=>r[7]),backgroundColor:ar.map(r=>gc(r[0])),borderRadius:5,barThickness:14}]},
+ options:{indexAxis:'y',layout:{padding:{right:70}},scales:{x:{min:1300,max:1540,grid:{color:'#1b212c'}},y:{grid:{display:false},ticks:{color:'#eef0f4',autoSkip:false}}},plugins:{vl:{on:true,fmt:(v,j)=>'#'+ar[j][6]+' · '+v}}}});
+// AA all
+const aaR=M.filter(r=>r[8]!=null).sort((a,b)=>num(b[8])-num(a[8]));
+new Chart(lAA,{type:'bar',data:{labels:aaR.map(r=>r[2]),datasets:[{data:aaR.map(r=>num(r[8])),backgroundColor:aaR.map(r=>String(r[8]).includes('*')?fade(gc(r[0]),.4):gc(r[0])),borderRadius:5,barThickness:12}]},
+ options:{indexAxis:'y',layout:{padding:{right:36}},scales:{x:{min:0,max:65,grid:{color:'#1b212c'}},y:{grid:{display:false},ticks:{color:'#eef0f4',autoSkip:false}}},plugins:{vl:{on:true,fmt:(v,j)=>String(aaR[j][8])}}}});
+// gap
+new Chart(lGap,{type:'bar',data:{labels:['Arena Elo (÷10)','AA Intelligence'],datasets:[
+ {label:'Best closed',data:[150.7,58],backgroundColor:C.a,borderRadius:5},{label:'Best open',data:[148.8,46],backgroundColor:'#ef4444',borderRadius:5}]},
+ options:{scales:{y:{min:0,max:170,grid:{color:'#1b212c'}},x:{grid:{display:false},ticks:{color:'#eef0f4'}}},plugins:{legend:{display:true,position:'top',align:'end',labels:{boxWidth:10,boxHeight:10}},
+ vl:{on:true,fmt:(v,j)=>j===0?Math.round(v*10):v},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataIndex===0?Math.round(c.raw*10):c.raw)}}}}});
+// price scatter
+const pr=M.filter(r=>r[11]&&r[8]!=null&&!String(r[8]).includes('*'));
+new Chart(lPrice,{type:'scatter',data:{datasets:pr.map(r=>({label:r[2],data:[{x:r[11],y:r[8]}],backgroundColor:gc(r[0]),borderColor:'#0b0d12',borderWidth:1.5,pointRadius:6,pointHoverRadius:8}))},
+ options:{scales:{x:{type:'logarithmic',min:0.4,max:70,title:{display:true,text:'Output $/1M'},ticks:{callback:v=>[0.5,1,2,5,10,20,50].includes(v)?'$'+v:''},grid:{color:'#1b212c'}},y:{min:5,max:62,title:{display:true,text:'AA Intelligence'},grid:{color:'#1b212c'}}},
+ plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': $'+c.raw.x+' · '+c.raw.y}}}},
+ plugins:[{id:'pl2',afterDatasetsDraw(ch){const c=ch.ctx;c.save();c.font='600 9.5px Inter,system-ui';c.fillStyle='#cbd2dd';const show=['Claude Opus 5.5','GPT‑6 Astra','GPT‑6.1 Sol','Grok 4.7','Muse Spark 1.3','MiMo‑V2.6‑Pro','Qwen3.8 Max','DeepSeek V4.1 Flash','Gemini 3.8 Flash','gpt‑oss‑120b','Inkling','Hy3','Gemma 4 31B'];
+  ch.data.datasets.forEach((d,i)=>{if(!show.includes(d.label))return;const e=ch.getDatasetMeta(i).data[0];c.textAlign=e.x>ch.chartArea.right-70?'right':'left';c.fillText(d.label,e.x+(c.textAlign==='right'?-9:9),e.y+3);});c.restore();}}]});
+// table
+const rng={elo:[1320,1525],aa:[5,58],code:[40,66],out:[50,0.5],ctx:[100,1050]};
+const heat=(k,v)=>{if(v==null||isNaN(v))return'';let [lo,hi]=rng[k];let t=k==='out'?(Math.log(lo)-Math.log(v))/(Math.log(lo)-Math.log(hi)):(v-lo)/(hi-lo);t=Math.max(0,Math.min(1,t));return`background:hsl(${t*130},62%,${42+t*8}%)`;};
+const cell=(k,v,txt)=>v==null?'<td class="na">—</td>':`<td class="h" style="${heat(k,num(v))}">${txt??v}</td>`;
+let sortK='elo',up=false,flt='all';
+const val=(r,k)=>({co:r[1],m:r[2],rel:r[3],open:r[4],cty:r[5],elo:r[7],aa:num(r[8]),code:r[9],out:r[11],ctx:r[12],st:r[13]})[k];
+function draw(){const rows=M.filter(r=>flt==='all'||r[0]===flt||(flt==='us'&&'xoag'.includes(r[0])&&r[0].length===1)).slice().sort((a,b)=>{let x=val(a,sortK),y=val(b,sortK);if(x==null||x==='—')return 1;if(y==null||y==='—')return -1;const d=typeof x==='string'?x.localeCompare(y):x-y;return up?d:-d;});
+ document.querySelector('#tbl tbody').innerHTML=rows.map(r=>`<tr><td class="co" style="--c:${gc(r[0])}">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td>${cell('elo',r[7],r[7]&&(r[7]+' <small>#'+r[6]+'</small>'))}${cell('aa',r[8])}${cell('code',r[9],r[9]&&r[9]+'%')}${cell('out',r[11],r[11]&&('$'+r[10]+'/$'+r[11]))}${cell('ctx',r[12],r[12]&&(r[12]>=1000?(r[12]/1000)+'M':r[12]+'k'))}<td><span class="st ${r[13]==='Gated'?'g':r[13]==='None'?'n':''}">${r[13]}</span></td></tr>`).join('');
+ document.querySelectorAll('#tbl th').forEach(th=>{th.classList.toggle('s',th.dataset.k===sortK);th.classList.toggle('up',th.dataset.k===sortK&&up);});}
+document.querySelectorAll('#tbl th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if(sortK===k)up=!up;else{sortK=k;up=['co','m','cty','open','st'].includes(k);}draw();});
+const fb=[['all','All','#eef0f4'],['us','US frontier','#eef0f4'],['big',G.big[0],G.big[1]],['cn',G.cn[0],G.cn[1]],['op',G.op[0],G.op[1]],['nl',G.nl[0],G.nl[1]]];
+const tf=document.getElementById('tfilter');tf.innerHTML=fb.map(f=>`<button data-f="${f[0]}" style="--c:${f[2]}" class="${f[0]==='all'?'on':''}">${f[1]}</button>`).join('');
+tf.querySelectorAll('button').forEach(b=>b.onclick=()=>{flt=b.dataset.f;tf.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));draw();});
+draw();
+// harness cards
+const H=[['Claude Code','Anthropic','>$2.5B','run‑rate · Feb (official)','Claude'],['Cursor','Anysphere','~$4B','annualized · Jun (reported)','Own: Composer 2 (Kimi K2.5 base)'],['Codex','OpenAI','5M+','weekly users · Jun (official)','GPT'],
+['Devin / Windsurf','Cognition','~$1B','run‑rate · late Sep (reported)','Own: SWE‑2'],['Lovable','Lovable','>$600M','ARR · Sep (TechCrunch)','Claude Opus 5.5 / Fable 5.1'],['Replit','Replit','~$525M','ARR · Apr (estimate)','Multi: Fable 5.x, GPT‑6 Astra'],
+['OpenClaw','OpenClaw Fdn','392k ★','GitHub stars · Oct 11','Any (bring your own)'],['Hermes Agent','Nous Research','253k ★','GitHub stars · Oct 11','Any + own Hermes 4'],['v0','Vercel','6M+','users · Mar (reported)','—'],['Bolt.new','StackBlitz','$40M','ARR · Mar 2025 (old)','Mostly Claude (reported)']];
+document.getElementById('hgrid').innerHTML=H.map(h=>`<div class="hc"><div class="n">${h[0]}</div><div class="b">${h[1]}</div><div class="k">${h[2]}</div><div class="kl">${h[3]}</div><div class="om"><b>Model:</b> ${h[4]}</div></div>`).join('');
+// matrix
+const mcols=['Claude','GPT','Gemini','Grok','Chinese open','Local','Own model'];
+const X=[['Claude Code','●','','','','','',''],['Codex','','●','','','','',''],['Cursor','○','○','○','○','○','','● Composer 2'],['Devin / Windsurf','○','○','○','','','','● SWE‑2'],['Lovable','●','','','','','',''],
+['Replit','●','●','','','','',''],['OpenClaw','○','○','○','○','○','○',''],['Hermes Agent','○','○','○','○','○','○','● Hermes 4'],['Perplexity','○','○','○','○','○','','● Sonar'],['Bolt.new','●','','','','','','']];
+document.getElementById('mx').innerHTML='<tr><th></th>'+mcols.map(c=>`<th>${c}</th>`).join('')+'</tr>'+X.map(r=>`<tr><td><b>${r[0]}</b></td>`+r.slice(1).map(v=>`<td class="${v.startsWith('●')?'p':'s'}">${v||'·'}</td>`).join('')+'</tr>').join('');
+// ===== Glossary (single dictionary, reused by refresh) =====
+const GLOSSARY={
+'Agentic':['agentic','agents?\\b'],'Artificial Analysis Intelligence Index':['AA Intel(?:ligence|\\.)?','Intelligence Index','AA\\b'],'ARR':['ARR'],'Ceiling tier':['ceiling'],
+'Coding Agent Index':['Coding Agent(?: Index| %)?'],'Computer use':['computer use'],'Context window':['context window','Context','ctx'],'Elo':['Elo'],'Estimate':['estimates?','est\\.'],
+'Flagship':['flagships?'],'Gated':['GATED','Gated','gating','testers.only'],'Harness':['harness(?:es)?'],'LMArena':['LMArena','Arena'],'MAU / WAU':['MAU','WAU','monthly','weekly'],
+'Open‑weight vs closed':['open.weights?','Weights','closed'],'Preliminary rank':['prelim(?:inary)?'],'Price per 1M tokens':['\\$ ?in/out','Output \\$ ?(?:per|/) ?1M(?: tokens)?','\\$/1M'],
+'Reasoning effort':['effort','xhigh','max effort'],'Run‑rate':['run.rate','annualized'],'Unlock %':['Unlock %','unlock'],'Fine‑tuning':['fine.tun(?:e|ing)'],'GitHub stars':['stars?\\b','★'],'Open source':['open source']};
+const DEF={'Agentic':'The AI works through multi‑step tasks on its own — planning, using tools and checking results — instead of just answering one message.',
+'Artificial Analysis Intelligence Index':'An independent score (0–100) from Artificial Analysis that averages many hard tests in reasoning, knowledge, math and coding. Higher = smarter.',
+'ARR':'Annual recurring revenue: current monthly revenue × 12. A growth signal, not a year of actual sales.',
+'Ceiling tier':'A lab’s most capable (and usually priciest) model — the top of what it can do today, e.g. GPT‑6 Astra or Claude Fable.',
+'Coding Agent Index':'Artificial Analysis’ score for how often a model finishes real software tasks on its own inside a coding agent, shown as % solved.',
+'Computer use':'The model controls a screen like a person — clicking, typing and browsing — to get work done in normal apps.',
+'Context window':'How much text (in tokens) the model can read at once. 1M tokens ≈ 750k words, or several books.',
+'Elo':'A chess‑style rating. People vote between two anonymous answers; winners gain points. ~20 points apart is a small gap, 100+ is big.',
+'Estimate':'Our own judgement from public signals, not a measured number. Treat as a direction, not a fact.',
+'Flagship':'The main model a company promotes as its best everyday option.',
+'Gated':'Released only to testers or approved users, so the public can’t use it yet.',
+'Harness':'The app or tool wrapped around a model (Cursor, Claude Code, OpenClaw…) that gives it files, tools and memory. The same model can perform very differently in different harnesses.',
+'LMArena':'A public leaderboard (arena.ai) ranking models by millions of blind human votes on which answer is better.',
+'MAU / WAU':'Monthly / weekly active users — people who used it at least once in that period. Weekly numbers are harder to hit, so they aren’t directly comparable.',
+'Open‑weight vs closed':'Open‑weight models can be downloaded and run on your own hardware. Closed models are only reachable through the company’s app or API.',
+'Preliminary rank':'A new model with too few votes so far; its LMArena score may still move noticeably.',
+'Price per 1M tokens':'API cost per million tokens (~750k words). “In” is what you send, “out” is what the model writes; output is usually pricier.',
+'Reasoning effort':'A setting (low → medium → high → xhigh → max) for how long the model thinks before answering. More effort = better results, slower and costlier.',
+'Run‑rate':'Recent revenue scaled up to a full year. Same idea as ARR.',
+'Unlock %':'Our estimate of how much of a model’s practical ability a typical user actually reaches.',
+'Fine‑tuning':'Training an existing model further on your own data so it gets better at your specific task.',
+'GitHub stars':'Bookmarks developers give a code project on GitHub — a rough popularity signal, not usage.',
+'Open source':'The code is public and free to use and modify.'};
+(function(){
+ const pop=document.createElement('div');pop.id='gpop';pop.setAttribute('role','tooltip');pop.hidden=true;document.body.appendChild(pop);
+ let cur=null,ft=0;
+ const show=(el)=>{cur=el;const k=el.dataset.t;pop.innerHTML=`<b>${k}</b><p>${DEF[k]}</p>`;pop.hidden=false;const r=el.getBoundingClientRect();const w=Math.min(280,innerWidth-20);pop.style.width=w+'px';
+  let x=r.left+scrollX;x=Math.max(10+scrollX,Math.min(x,scrollX+innerWidth-w-10));pop.style.left=x+'px';pop.style.top=(r.bottom+scrollY+6)+'px';el.setAttribute('aria-expanded','true');};
+ const hide=()=>{pop.hidden=true;if(cur)cur.setAttribute('aria-expanded','false');cur=null;};
+ const pats=[];Object.entries(GLOSSARY).forEach(([k,a])=>a.forEach(p=>pats.push([k,p])));pats.sort((a,b)=>b[1].length-a[1].length);
+ const re=new RegExp('(?<![A-Za-z])('+pats.map(p=>p[1]).join('|')+')(?![A-Za-z])','i');const keyOf=s=>pats.find(p=>new RegExp('^(?:'+p[1]+')$','i').test(s))?.[0];
+ const scope=document.querySelectorAll('.wrap h2,.wrap .cap,.wrap .d,.wrap .ed,.wrap .ch,.wrap .badge,.wrap .tag,.wrap .kl,.wrap .om,.wrap .gapnums span,.wrap details li,.wrap .lab .v,.wrap .sh');
+ scope.forEach(blk=>{const done=new Set();const w=document.createTreeWalker(blk,NodeFilter.SHOW_TEXT);const ns=[];while(w.nextNode())ns.push(w.currentNode);
+  ns.forEach(n=>{if(n.parentElement.closest('a,.term,button'))return;let t=n.nodeValue,m;const frag=document.createDocumentFragment();let any=false;
+   while((m=t.match(re))){const k=keyOf(m[0]);if(!k||done.has(k)){frag.append(t.slice(0,m.index+m[0].length));t=t.slice(m.index+m[0].length);continue;}
+    done.add(k);any=true;frag.append(t.slice(0,m.index));const s=document.createElement('span');s.className='term';s.tabIndex=0;s.dataset.t=k;s.setAttribute('role','button');s.setAttribute('aria-expanded','false');s.setAttribute('aria-label',m[0]+' — definition');s.textContent=m[0];frag.append(s);t=t.slice(m.index+m[0].length);}
+   if(any){frag.append(t);n.replaceWith(frag);}});});
+ document.addEventListener('click',e=>{const t=e.target.closest('.term');if(t){e.stopPropagation();e.preventDefault();if(cur===t&&Date.now()-ft>400)hide();else show(t);return;}if(!e.target.closest('#gpop'))hide();});
+ document.addEventListener('mouseover',e=>{const t=e.target.closest('.term');if(t&&matchMedia('(hover:hover)').matches)show(t);});
+ document.addEventListener('mouseout',e=>{const t=e.target.closest('.term');if(t&&matchMedia('(hover:hover)').matches&&!(e.relatedTarget&&e.relatedTarget.closest('#gpop')))hide();});
+ document.addEventListener('focusin',e=>{const t=e.target.closest('.term');if(t){ft=Date.now();show(t);}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){hide();closeG();}const t=e.target.closest&&e.target.closest('.term');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();cur===t?hide():show(t);}});
+ // glossary modal
+ const btn=document.createElement('button');btn.id='gbtn';btn.textContent='Glossary';btn.setAttribute('aria-haspopup','dialog');document.body.appendChild(btn);
+ const md=document.createElement('div');md.id='gmod';md.hidden=true;md.innerHTML=`<div class="gbox" role="dialog" aria-modal="true" aria-labelledby="gttl"><div class="ghd"><h2 id="gttl">Glossary</h2><button id="gx" aria-label="Close glossary">✕</button></div><dl>${Object.keys(DEF).sort((a,b)=>a.localeCompare(b)).map(k=>`<dt>${k}</dt><dd>${DEF[k]}</dd>`).join('')}</dl></div>`;document.body.appendChild(md);
+ const openG=()=>{hide();md.hidden=false;document.getElementById('gx').focus();};window.closeG=()=>{if(!md.hidden){md.hidden=true;btn.focus();}};
+ btn.onclick=openG;md.addEventListener('click',e=>{if(e.target===md||e.target.id==='gx')closeG();});
+})();
 </script>
 </body>
 </html>
