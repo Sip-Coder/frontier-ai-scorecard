@@ -45,8 +45,10 @@ summary{cursor:pointer;color:var(--text);font-weight:600}
 details ul{padding-left:18px}details li{margin:4px 0}
 a{color:var(--accent)}
 footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:14px}
+.aidb{margin-top:22px}.aidb h2{font-size:.95rem;margin:0 0 10px;font-weight:650}.aidb h2 span{color:var(--muted);font-weight:500;font-size:.75rem;margin-left:6px}
+.aidb .labs{margin-bottom:0}.aidb ul{margin:8px 0;padding-left:16px;font-size:.8rem}.aidb li{margin:3px 0}.aidb .ep{font-size:.72rem;color:var(--muted)}
 @media (max-width:900px){.labs{grid-template-columns:repeat(2,minmax(0,1fr))}.s6,.s4,.s8{grid-column:span 12}}
-@media (max-width:480px){.wrap{padding:24px 14px 40px}.lab{padding:12px}.lab .m{font-size:.95rem}.cv{height:240px}}
+@media (max-width:480px){.aidb .labs{grid-template-columns:1fr}.wrap{padding:24px 14px 40px}.lab{padding:12px}.lab .m{font-size:.95rem}.cv{height:240px}}
 </style>
 </head>
 <body>
@@ -87,6 +89,16 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
   <span style="--c:var(--claude)"><i></i>Anthropic</span><span style="--c:var(--gemini)"><i></i>Google</span>
 </div>
 
+<section class="aidb">
+<h2>🎙 AI Daily Brief take <span>NLW’s podcast · from published transcripts</span></h2>
+<div class="labs">
+  <div class="lab" style="--c:var(--grok)"><div class="co"><span class="chip">x</span>xAI</div><div class="m">Grok 4.7</div><ul><li>Benchmarks say cheap coding workhorse; early users say slower, pricier</li><li>Shows how hard the middle ground is between frontier and ultra‑cheap</li><li>Verdict: wait a few days, judge it inside GrokBot</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-09-22">Agent Wars!</a> · Sep 22</div></div>
+  <div class="lab" style="--c:var(--openai)"><div class="co"><span class="chip">O</span>OpenAI</div><div class="m">GPT‑6.1 Sol</div><ul><li>6 Sol/Luna launch: “all about cost and efficiency”</li><li>6.1 Sol lands near Astra at a fraction of the price</li><li>First reactions split; NLW wants hands‑on time first</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-09-23">Opus 5.5 vs GPT‑6 Sol and Luna</a> · Sep 23<br><a href="https://aidailybrief.ai/e/2026-09-30">OpenAI DevDay tools</a> · Sep 30</div></div>
+  <div class="lab" style="--c:var(--claude)"><div class="co"><span class="chip">A</span>Anthropic</div><div class="m">Claude Opus 5.5</div><ul><li>“A return to glory” after a disliked Opus 5</li><li>Dominated launch discourse: faster, far less verbose</li><li>Pacing‑era win: incremental gains, big cost cuts</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-09-23">Opus 5.5 vs GPT‑6 Sol and Luna</a> · Sep 23</div></div>
+  <div class="lab" style="--c:var(--gemini)"><div class="co"><span class="chip">G</span>Google</div><div class="m">Gemini 4 Argon</div><ul><li>Benchmarks put Google “right back in the game”</li><li>No public access yet, so it doesn’t matter for now</li><li>Needs a Codex‑class harness; Bloomberg flags coding doubts</li></ul><div class="ep"><a href="https://aidailybrief.ai/e/2026-10-01">Gemini 4 Argon, Sonnet 5.5…</a> · Oct 1</div></div>
+</div>
+</section>
+
 <details>
 <summary>Sources &amp; caveats</summary>
 <ul>
@@ -94,6 +106,7 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 <li>Moved since Sep 21: OpenAI everyday 25–40 → 30–45 (GPT‑6 default on all tiers incl. Free); Anthropic researcher 65–80 → 70–85 (Opus 5.5 reaches Fable ceiling at Opus price).</li>
 <li>Usage: ChatGPT &gt;1.2B weekly (OpenAI); Gemini app &gt;1B monthly (Google, Aug); Grok ~117M monthly AI‑feature users (SpaceX S‑1, Mar); Claude app ~56M monthly (Reuters/Sensor Tower, Jun). Mobile DAU figures via BofA/Sensor Tower are secondary. Codex + Work "40M active" has no stated window.</li>
 <li>Argon AA 53 / Coding 63.8% shown though not public. Prices: Argon intro $2/$10 (later $4/$20); 3.8 Flash intro $0.75/$3.75; Astra $10/$50. Grok 4.6‑high #72 · 1454 on Arena.</li>
+<li>AI Daily Brief notes paraphrase Nathaniel Whittemore’s episode transcripts (aidailybrief.ai, Sep 22 – Oct 1), incl. reactions he quoted; commentary, not data.</li>
 <li>Vendor benchmark tables treated as claims; LMArena and Artificial Analysis are independent.</li>
 </ul>
 <p>Sources (accessed Oct 10, 2026):
@@ -106,7 +119,7 @@ footer{margin-top:18px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap
 <a href="https://arena.ai/leaderboard/text">LMArena Text</a> · <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis</a> ·
 <a href="https://artificialanalysis.ai/articles/claude-opus-5-5">AA Opus 5.5</a> · <a href="https://benchlm.ai/benchmarks/aacodingagents">AA Coding Agent (BenchLM)</a> ·
 <a href="https://cryptobriefing.com/chatgpt-gemini-growth-meta-muse-2-million/">BofA/Sensor Tower</a> · <a href="https://runtimewire.com/article/openai-codex-chatgpt-work-40-million-users">Codex + Work 40M</a> ·
-<a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> · <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a></p>
+<a href="https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/">Gemini 1B MAU</a> · <a href="https://www.anthropic.com/research/claude-code-expertise">Claude Code expertise study</a> · <a href="https://aidailybrief.ai">The AI Daily Brief</a></p>
 </details>
 
 <footer><span>Past editions:</span><a href="archive/2026-09-21.html">Sep 21, 2026</a><a href="archive/2026-10-10.html">Oct 10, 2026 (full text)</a></footer>
