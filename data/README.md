@@ -31,10 +31,16 @@ In split view, the current week is on the left (`current.json`) and the edition 
 
 Missing values are always `null`, never guessed. The UI shows `—` or "Not tracked in this edition".
 
+## Stocks (`data/stocks/`)
+Publicly traded companies only (no private valuations). `meta.json` = tickers, exchange, currency, IPO date, `as_of`; `1d.json` (5‑min), `5d.json` (30‑min), `daily.json` (2y daily), `weekly.json` (max weekly): `{SYMBOL:[[unix_ts, close],…]}`.
+Every snapshot shares these files; the page cuts each series at the snapshot's date, so past editions show their stock block as of that week (1D/5D only for the current edition). Snapshots from 2026‑10‑12 carry a `stocks` reference key.
+**Weekly refresh:** run `python3 scripts/update_stocks.py` from the repo root before committing. It refetches every ticker from Yahoo Finance (Stooq fallback for daily) and rewrites `data/stocks/`. To add a newly listed AI company, add it to `TICKERS` in the script.
+
 ## How a refresh adds a snapshot
 1. Build the new edition with the schema above and write it to `data/<today>.json` **and** `data/current.json`.
 2. On Sundays (or whenever a refresh crosses one), also write `data/<sunday>.json` from that week's LMArena and AA data, if one doesn't exist yet.
 3. Add both entries to `index.json.snapshots` in date order, and set `index.json.current`.
 4. Add a week to `history.json.weeks` (same fields), and add to `releases` when a lab's best model changes.
-5. Never edit older snapshots. `archive/*.html` stays as the original text editions.
+5. Run `scripts/update_stocks.py`.
+6. Never edit older snapshots. `archive/*.html` stays as the original text editions.
 Backfill scripts live outside the repo (`/workspace/frontier-scorecard/hist/`: arena.py, aa.py, aa3.py, build.py).

@@ -108,6 +108,12 @@ td{padding:7px 8px;border-bottom:1px solid #1b212c;white-space:nowrap}td.co{bord
  .split-on .chd{display:none}
  #bar .in{padding-right:20px}
 }
+.stk .bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:10px}
+.pills{display:flex;gap:2px;background:#10141c;border:1px solid var(--line);border-radius:999px;padding:3px}.pills button{font:inherit;font-size:.72rem;font-weight:600;background:none;border:0;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer}.pills button.on{background:#232a36;color:var(--text)}
+.sleg{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.sleg button{font:inherit;font-size:.72rem;font-weight:650;display:flex;align-items:center;gap:6px;background:#10141c;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:4px 8px;cursor:pointer}.sleg i{width:10px;height:3px;border-radius:2px;background:var(--c)}.sleg b,.stip b{font-weight:650}.up{color:#4ade80}.dn{color:#f87171}.sleg button.off{opacity:.35}.sleg button.off i{background:#566074}
+.stk .cv{height:340px}.stk .cv.nodata canvas{visibility:hidden}.stk .cv.nodata::after{content:attr(data-empty);position:absolute;inset:0;display:grid;place-items:center;color:#566074;font-size:.8rem}
+.stip{position:absolute;z-index:5;pointer-events:none;background:#1c2230ee;border:1px solid #334055;border-radius:10px;padding:8px 10px;font-size:.72rem;min-width:180px;box-shadow:0 8px 24px #0008}.stip .tt{color:var(--muted);margin-bottom:4px}.stip .tr{display:grid;grid-template-columns:8px 1fr auto auto;gap:8px;align-items:center;padding:1px 0}.stip .tr i{width:8px;height:8px;border-radius:50%}.stip em{font-style:normal;color:var(--muted);text-align:right;min-width:64px}
+@media (max-width:480px){.pills button{padding:4px 6px}.stk .cv{height:280px}}
 </style>
 </head>
 <body>
@@ -175,6 +181,7 @@ ${card('c8','s12','ctx','Context window','class="cv sm"',esc(cap.ctx||'Tokens.')
 </section>
 <div class="legend" data-sec="leg"><span style="--c:var(--grok)"><i></i>xAI</span><span style="--c:var(--openai)"><i></i>OpenAI</span><span style="--c:var(--claude)"><i></i>Anthropic</span><span style="--c:var(--gemini)"><i></i>Google</span></div>
 <section class="aidb" data-sec="aidb"><h2 data-info="aidb">🎙 AI Daily Brief take <span>NLW’s podcast · from published transcripts</span></h2><div class="labs">${S.aidb?S.aidb.map(a=>`<div class="lab" style="--c:${C[a.lab]}"><div class="co"><span class="chip">${CHIP[a.lab]}</span>${G[a.lab][0]}</div><div class="m">${esc(a.model)}</div><ul>${a.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul><div class="ep">${a.eps.map(e=>`<a href="${e.url}">${esc(e.t)}</a> · ${esc(e.d)}`).join('<br>')}</div></div>`).join(''):`<div class="lab" style="--c:#566074;grid-column:1/-1"><div class="d">Not tracked in this edition — AI Daily Brief notes start with the Oct 2026 editions.</div></div>`}</div></section>
+<section class="grid" style="margin-top:22px" data-sec="stk"><div class="card s12 stk" data-stk><h2 data-info="stocks">AI stocks · rebased % change</h2><div class="bar"><div class="pills" data-pills></div><span class="cap" style="margin:0" data-asof></span></div><div class="cv"><canvas></canvas><div class="stip" data-tip hidden></div></div><div class="sleg" data-leg></div><p class="cap">Publicly traded companies only · each line starts at 0% · newer listings start at their IPO.</p></div></section>
 <section class="land" id="${side==='r'?'landscape-r':'landscape'}" data-sec="landh"><div class="lh"><h1 style="font-size:1.6rem">Full landscape</h1><div class="ed">Every lab, open‑weight model and coding harness · ${esc(cap.land||'')}</div></div>
 <div class="gchips">${Object.keys(G).map(k=>`<span style="--c:${gc(k)}"><i></i>${G[k][0]}</span>`).join('')}</div></section>
 <section class="grid">
@@ -255,13 +262,13 @@ function table(col,LM){const st={k:'elo',up:false,f:'all'};const vals=LM.map(r=>
  tf.innerHTML=fb.map(f=>`<button data-f="${f[0]}" style="--c:${f[2]}" class="${f[0]==='all'?'on':''}">${f[1]}</button>`).join('');
  tf.querySelectorAll('button').forEach(b=>b.onclick=()=>{st.f=b.dataset.f;tf.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));draw();});draw();}
 
-const GLOSSARY={
+const GLOSSARY={'Rebased % change':['rebased(?: % change)?'],'Ticker':['tickers?'],'IPO':['IPO'],
 'Agentic':['agentic','agents?\\b'],'Artificial Analysis Intelligence Index':['AA Intel(?:ligence|\\.)?','Intelligence Index','AA\\b'],'ARR':['ARR'],'Ceiling tier':['ceiling'],
 'Coding Agent Index':['Coding Agent(?: Index| %)?'],'Computer use':['computer use'],'Context window':['context window','Context','ctx'],'Elo':['Elo'],'Estimate':['estimates?','est\\.'],
 'Flagship':['flagships?'],'Gated':['GATED','Gated','gating','testers.only'],'Harness':['harness(?:es)?'],'LMArena':['LMArena','Arena'],'MAU / WAU':['MAU','WAU','monthly','weekly'],
 'Open‑weight vs closed':['open.weights?','Weights','closed'],'Preliminary rank':['prelim(?:inary)?'],'Price per 1M tokens':['\\$ ?in/out','Output \\$ ?(?:per|/) ?1M(?: tokens)?','\\$/1M'],
 'Reasoning effort':['effort','xhigh','max effort'],'Run‑rate':['run.rate','annualized'],'Unlock %':['Unlock %','unlock'],'Capability overhang':['overhang'],'Fine‑tuning':['fine.tun(?:e|ing)'],'GitHub stars':['stars?\\b','★'],'Open source':['open source'],'Snapshot':['snapshots?','edition'],'Wayback Machine':['Wayback(?: Machine)?','Internet Archive'],'Index version':['index version','re‑index']};
-const DEF={'Capability overhang':'The gap between what a model can do at its best and what people actually get out of it. Dashed outline = potential nobody is using; faded = only power users reach it.','Agentic':'The AI works through multi‑step tasks on its own — planning, using tools and checking results — instead of just answering one message.',
+const DEF={'Rebased % change':'Every line is reset to 0% at the start of the chosen period, so stocks with very different prices can be compared on one chart.','Ticker':'The short code a stock trades under, e.g. GOOGL for Alphabet or 0700 for Tencent on the Hong Kong exchange.','IPO':'Initial public offering — the day a private company’s shares first trade on a stock exchange.','Capability overhang':'The gap between what a model can do at its best and what people actually get out of it. Dashed outline = potential nobody is using; faded = only power users reach it.','Agentic':'The AI works through multi‑step tasks on its own — planning, using tools and checking results — instead of just answering one message.',
 'Artificial Analysis Intelligence Index':'An independent score (0–100) from Artificial Analysis that averages many hard tests in reasoning, knowledge, math and coding. Higher = smarter.',
 'ARR':'Annual recurring revenue: current monthly revenue × 12. A growth signal, not a year of actual sales.',
 'Ceiling tier':'A lab’s most capable (and usually priciest) model — the top of what it can do today, e.g. GPT‑6 Astra or Claude Fable.',
@@ -285,7 +292,7 @@ const DEF={'Capability overhang':'The gap between what a model can do at its bes
 'GitHub stars':'Bookmarks developers give a code project on GitHub — a rough popularity signal, not usage.',
 'Open source':'The code is public and free to use and modify.','Snapshot':'A saved copy of every number on this page as of one date. Weekly snapshots are taken each Sunday; editions are the hand‑written reports.','Wayback Machine':'The Internet Archive’s public record of how web pages looked on past dates. Backfilled weeks read the leaderboards from it.','Index version':'Artificial Analysis periodically changes which tests make up its Intelligence Index, which re‑scales every score. Only compare scores within one version.'};
 
-const CHART_INFO={tElo:{t:'LMArena Elo over time',q:'How has each lab’s best model ranked with people, week by week?',r:'One line per lab’s best model. Dashed = best Chinese / best open‑weight. Shaded week = no archive.',s:'Internet Archive (Wayback Machine) snapshots of the LMArena Text leaderboard, nearest on or before each Sunday.',c:'Elo drifts as new models join; small moves are noise.'},
+const CHART_INFO={stocks:{t:'AI stocks · rebased % change',q:'How have the publicly traded AI companies’ shares moved against each other?',r:'Each line = one ticker’s % change from the first price in the selected range (0%). Pick a range with the pills; hover for each ticker’s % and price on that date; tap a ticker chip to hide it.',s:'Yahoo Finance price history, saved on each weekly refresh. 1D = 5‑min, 5D = 30‑min, 1M–1Y = daily, 5Y–MAX = weekly closes.',c:'Hong Kong tickers trade in HK$ and on HK hours, so 1D/5D lines cover a different session. SpaceX, Zhipu and MiniMax listed in 2026, so long ranges start at their IPO. Private labs (OpenAI, Anthropic…) have no stock and aren’t shown. Past editions show prices up to that week; intraday isn’t archived.'},tElo:{t:'LMArena Elo over time',q:'How has each lab’s best model ranked with people, week by week?',r:'One line per lab’s best model. Dashed = best Chinese / best open‑weight. Shaded week = no archive.',s:'Internet Archive (Wayback Machine) snapshots of the LMArena Text leaderboard, nearest on or before each Sunday.',c:'Elo drifts as new models join; small moves are noise.'},
 tAA:{t:'AA Intelligence over time',q:'Is the frontier getting smarter on hard tests?',r:'One line per lab’s best model. Dashed vertical line = Artificial Analysis changed the index version.',s:'Wayback snapshots of artificialanalysis.ai.',c:'Scores across an index version change are not comparable — drops there are re‑scaling, not regressions.'},
 tGap:{t:'Open vs closed gap over time',q:'Are downloadable models catching up?',r:'Solid = Elo gap, dashed = AA points gap (right axis). Lower = closer.',s:'Same weekly LMArena + AA snapshots.',c:'“Open” follows each licence. AA gap resets at index version changes.'},
 tPrice:{t:'Price of the frontier',q:'Is top‑tier intelligence getting cheaper?',r:'Pink = output price of the #1 AA model. Teal = cheapest model within 5 AA points of it. Log scale.',s:'Prices from archived AA model data.',c:'List prices only; weeks without archived prices are gaps.'},
@@ -307,6 +314,48 @@ lPrice:{t:'Price vs intelligence · all',q:'Who gives the most capability per do
 table:{t:'Capability matrix',q:'All the numbers in one place.',r:'One row per model. Tap a column header to sort; use the filters to narrow by group. Colours rank cells.',s:'LMArena (Oct 8), Artificial Analysis (Oct 12), provider pages.',c:'Dash = no public figure. * = partial estimate.'},
 harness:{t:'Harnesses & coding agents',q:'Which tools wrap the models, and how big are they?',r:'One card per tool, with the models it runs on and reported revenue or users.',s:'Company posts and press reports (dates in Sources).',c:'Many figures are second‑hand estimates.'},
 mx:{t:'Who runs on whose model',q:'Which harness depends on which lab?',r:'Rows = tools, columns = model makers. Filled dot = supported; ring = own model.',s:'Product docs and settings pages.',c:'Model lists change often; defaults aren’t shown.'}};
+
+// ---------- AI stocks (Seeking Alpha-style rebased comparison) ----------
+const SK={};const skGet=f=>SK[f]||(SK[f]=fetch('data/stocks/'+f+'.json').then(r=>r.json()));
+const RANGES=['1D','5D','1M','6M','YTD','1Y','5Y','10Y','MAX'];
+const ptf=(t,o)=>new Date(t*1000).toLocaleString('en-US',Object.assign({timeZone:'America/Los_Angeles'},o));
+async function stocks(col,S){const box=col.querySelector('[data-stk]');if(!box)return;
+ const [M,D1,D5,DD,DW]=await Promise.all(['meta','1d','5d','daily','weekly'].map(skGet));
+ const live=S.kind==='current';const endT=live?Infinity:Date.parse(S.date+'T23:59:59Z')/1000;
+ const asof=box.querySelector('[data-asof]');asof.textContent=live?'Prices as of '+ptf(M.as_of,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT · '+M.tickers.length+' public tickers':'Prices as of close '+fd(S.date,1);
+ const off=col._skOff||(col._skOff=new Set());let rg=col._skRg||'1Y';
+ const pills=box.querySelector('[data-pills]'),leg=box.querySelector('[data-leg]'),cv=box.querySelector('canvas'),tip=box.querySelector('[data-tip]'),cvw=box.querySelector('.cv');
+ pills.innerHTML=RANGES.map(r=>`<button data-r="${r}" class="${r===rg?'on':''}">${r}</button>`).join('');
+ const series=r=>{const now=live?M.as_of:endT;const day=864e2;let src,start;
+  if(r==='1D'||r==='5D'){if(!live)return null;src=r==='1D'?D1:D5;start=-Infinity;}
+  else if(['5Y','10Y','MAX'].includes(r)){src=DW;start=r==='MAX'?-Infinity:now-(r==='5Y'?5:10)*365.25*day;}
+  else{src=DD;const e=new Date(Math.min(now,M.as_of)*1000);start=r==='1M'?now-30.5*day:r==='6M'?now-182.6*day:r==='1Y'?now-365.25*day:Date.UTC(e.getUTCFullYear(),0,1)/1000-1;}
+  return M.tickers.map(t=>{let p=(src[t.sym]||[]).filter(x=>x[0]<=endT&&x[0]>=start);
+   if(r==='YTD'||r==='1M'||r==='6M'||r==='1Y'){const prev=(src[t.sym]||[]).filter(x=>x[0]<start).pop();if(prev)p=[prev,...p];}
+   if(p.length<2)return null;const b=p[0][1];return {t,b,pts:p.map(x=>({x:x[0]*1000,y:(x[1]/b-1)*100,p:x[1]})),listed:t.first_trade&&t.first_trade>=(p[0][0]-8*864e2)&&r!=='1D'&&r!=='5D'};}).filter(Boolean);};
+ const pct=v=>(v>=0?'+':'')+v.toFixed(Math.abs(v)<10?2:1)+'%';
+ const draw=()=>{if(col._skCh){col._skCh.destroy();col._skCh=null;}tip.hidden=true;
+  pills.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.r===rg));const L=series(rg);
+  if(!L||!L.length){cvw.dataset.empty='Intraday prices aren’t archived for past editions';cvw.classList.add('nodata');leg.innerHTML='';return;}cvw.classList.remove('nodata');
+  const last=s=>s.pts[s.pts.length-1];L.sort((a,b)=>last(b).y-last(a).y);
+  leg.innerHTML=L.map(s=>{const v=last(s).y;return `<button data-s="${s.t.sym}" class="${off.has(s.t.sym)?'off':''}" style="--c:${s.t.color}"><i></i>${esc(s.t.sym.replace('.HK',''))}<b class="${v>=0?'up':'dn'}">${pct(v)}</b></button>`;}).join('');
+  const intr=rg==='1D'||rg==='5D',span=(L[0].pts.at(-1).x-Math.min(...L.map(s=>s.pts[0].x)))/864e5;
+  const tl=v=>{const t=v/1000;return rg==='1D'?ptf(t,{hour:'numeric',minute:'2-digit'}):rg==='5D'?ptf(t,{weekday:'short'}):span>800?ptf(t,{year:'numeric'}):ptf(t,{month:'short',day:'numeric'});};
+  const xh={id:'xh',afterDatasetsDraw(ch){if(ch._hx==null)return;const c=ch.ctx,a=ch.chartArea;c.save();c.strokeStyle='#5b6578';c.setLineDash([3,3]);c.beginPath();c.moveTo(ch._hx,a.top);c.lineTo(ch._hx,a.bottom);c.stroke();c.restore();}};
+  const zero={id:'z0',beforeDatasetsDraw(ch){const y=ch.scales.y.getPixelForValue(0),a=ch.chartArea;const c=ch.ctx;c.save();c.strokeStyle='#3a4352';c.beginPath();c.moveTo(a.left,y);c.lineTo(a.right,y);c.stroke();c.restore();}};
+  col._skCh=new Chart(cv,{type:'line',data:{datasets:L.map(s=>({label:s.t.sym,data:s.pts,borderColor:s.t.color,borderWidth:1.6,pointRadius:0,tension:0,hidden:off.has(s.t.sym),_s:s}))},
+   options:{animation:false,parsing:false,normalized:true,events:[],layout:{padding:{top:6}},scales:{x:{type:'linear',min:Math.min(...L.map(s=>s.pts[0].x)),max:Math.max(...L.map(s=>s.pts.at(-1).x)),grid:{display:false},ticks:{maxTicksLimit:innerWidth<500?4:7,callback:tl,maxRotation:0}},
+   y:{position:'right',grid:{color:'#1b212c'},ticks:{callback:v=>v+'%',maxTicksLimit:7}}},plugins:{tooltip:{enabled:false}}},plugins:[xh,zero]});
+  const ch=col._skCh;
+  const mv=e=>{const r=cv.getBoundingClientRect(),cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left,a=ch.chartArea;if(cx<a.left||cx>a.right){out();return;}
+   const xv=ch.scales.x.getValueForPixel(cx);const rows=L.filter(s=>!off.has(s.t.sym)).map(s=>{let q=null;for(const p of s.pts){if(p.x<=xv)q=p;else break;}return q&&{s,q};}).filter(Boolean).sort((a,b)=>b.q.y-a.q.y);
+   ch._hx=cx;ch.draw();if(!rows.length){tip.hidden=true;return;}const t0=rows[0].q.x/1000;
+   tip.innerHTML=`<div class="tt">${intr?ptf(t0,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT':ptf(t0,{month:'short',day:'numeric',year:'numeric'})}</div>`+rows.map(({s,q})=>`<div class="tr"><i style="background:${s.t.color}"></i><span>${esc(s.t.sym.replace('.HK',''))}</span><b class="${q.y>=0?'up':'dn'}">${pct(q.y)}</b><em>${s.t.currency==='USD'?'$':'HK$'}${q.p.toFixed(2)}</em></div>`).join('');
+   tip.hidden=false;const w=tip.offsetWidth;tip.style.left=(cx+14+w>r.width?cx-14-w:cx+14)+'px';tip.style.top='8px';};
+  const out=()=>{tip.hidden=true;ch._hx=null;ch.draw();};
+  cv.onmousemove=mv;cv.onmouseleave=out;cv.ontouchstart=cv.ontouchmove=e=>{mv(e);};cv.ontouchend=()=>setTimeout(out,1500);
+  leg.querySelectorAll('button').forEach(b=>b.onclick=()=>{const k=b.dataset.s;off.has(k)?off.delete(k):off.add(k);b.classList.toggle('off');const i=ch.data.datasets.findIndex(d=>d.label===k);ch.setDatasetVisibility(i,!off.has(k));ch.update('none');});};
+ pills.querySelectorAll('button').forEach(b=>b.onclick=()=>{rg=col._skRg=b.dataset.r;draw();});draw();}
 
 // ---------- glossary + chart-info popovers (delegated; work in both columns) ----------
 const gpop=document.createElement('div');gpop.id='gpop';gpop.setAttribute('role','tooltip');gpop.hidden=true;document.body.appendChild(gpop);
@@ -350,7 +399,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){ghide();closeG();if
 const cache={};const get=f=>cache[f]||(cache[f]=fetch('data/'+f+'.json').then(r=>{if(!r.ok)throw new Error(f);return r.json();}));
 const colL=document.getElementById('colL'),colR=document.getElementById('colR'),pick=document.getElementById('pick'),slide=document.getElementById('slide'),xbtn=document.getElementById('xbtn'),mtabs=document.getElementById('mtabs');
 let IDX,CUR,PAST=null,mside='l';
-function render(col,S,side){(col._ch||[]).forEach(c=>c.destroy());col.innerHTML=T(S,side);charts(col,S);decorate(col);}
+function render(col,S,side){(col._ch||[]).forEach(c=>c.destroy());if(col._skCh){col._skCh.destroy();col._skCh=null;}col.innerHTML=T(S,side);charts(col,S);decorate(col);stocks(col,S).then(()=>{decorate(col);align();}).catch(e=>console.warn(e));}
 function leadersOf(S){const o={};(S.models||[]).filter(B4).forEach(m=>{if(m.elo&&(!o[m.g]||m.elo>o[m.g].elo))o[m.g]=Object.assign({},o[m.g],{elo:m.elo});});['x','o','a','g'].forEach(k=>{const a=(S.models||[]).filter(m=>m.g===k&&m.aa!=null).map(m=>m.aa);if(a.length)(o[k]=o[k]||{}).aa=Math.max(...a);});return o;}
 function deltas(){colL.querySelectorAll('.dlx').forEach(e=>e.innerHTML='');if(!PAST)return;const a=leadersOf(CUR),b=leadersOf(PAST);const sameAA=CUR.aa_version===PAST.aa_version;
  colL.querySelectorAll('.lab[data-lab]').forEach(el=>{const k=el.dataset.lab,x=a[k]||{},y=b[k]||{};const f=(v,w,u)=>v==null||w==null?'':`<span class="dl ${v>w?'up':v<w?'dn':'eq'}" title="vs ${fd(PAST.date,1)}">${v>w?'▲':v<w?'▼':'='}${v===w?'':Math.abs(Math.round((v-w)*10)/10)} ${u}</span>`;
