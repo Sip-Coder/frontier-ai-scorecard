@@ -127,7 +127,9 @@ def corr(R,syms,keys):
         for a in range(len(syms)):
             row=np.nan_to_num(C[a],nan=-9); top=np.argsort(-row)[:12]
             keep|={(min(a,b),max(a,b)) for b in top if row[b]>=0.4}
-        out["snap"][k]={"e":[v for a,b in sorted(keep) for v in (int(a),int(b),int(round(C[a,b]*100)))],"h":hist}
+        q=np.nan_to_num(np.round(C[iu]*100),nan=-128).clip(-128,100).astype(np.int8)
+        import base64; mtx=base64.b64encode(q.tobytes()).decode()
+        out["snap"][k]={"m":mtx,"e":[v for a,b in sorted(keep) for v in (int(a),int(b),int(round(C[a,b]*100)))],"h":hist}
     fn=os.path.join(ROOT,"ax_corr.json"); json.dump(out,open(fn+".tmp","w"),separators=(",",":")); os.replace(fn+".tmp",fn)
     print("corr:",len(out["snap"]),"snapshots, live edges",len(out["snap"]["live"]["e"])//3)
 if __name__=="__main__": main()
