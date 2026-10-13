@@ -7,7 +7,7 @@ const TF=[['1D','d1',3],['5D','d5',6],['1M','m1',12],['YTD','ytd',40],['1Y','y1'
 const term=(k,t)=>`<span class="term" tabindex="0" role="button" aria-expanded="false" data-t="${k}">${t||k}</span>`;
 const f=(v,d=1,s)=>v==null?'—':(s&&v>0?'+':'')+(v<0?'−':'')+Math.abs(v).toFixed(d)+(s?'%':'');
 const cls=v=>v==null?'':v>0?'up':v<0?'dn':'';
-function heat(v,lim){if(v==null)return'#1b212c';const t=Math.max(-1,Math.min(1,v/lim)),a=[38,44,56],b=t>0?[22,163,74]:[220,38,38],k=Math.abs(t)**.8;return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*k)).join(',')})`;}
+function heat(v,lim,glow){if(v==null)return'#1b212c';const t=Math.max(-1,Math.min(1,v/lim)),a=glow?[120,140,170]:[38,44,56],b=t>0?[22,163,74]:[220,38,38],k=Math.abs(t)**.8;return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*k)).join(',')})`;}
 function sq(it,x,y,w,h){const out=[];const T=it.reduce((s,q)=>s+q.v,0);if(!T||w<=0||h<=0)return out;let a=it.map(o=>({o,a:o.v*w*h/T}));
  while(a.length){const side=Math.min(w,h);const worst=r=>{const s=r.reduce((t,q)=>t+q.a,0),mx=Math.max(...r.map(q=>q.a)),mn=Math.min(...r.map(q=>q.a));return Math.max(side*side*mx/(s*s),s*s/(side*side*mn));};
   let row=[a[0]],i=1;while(i<a.length&&worst([...row,a[i]])<=worst(row)){row.push(a[i]);i++;}
@@ -18,7 +18,7 @@ function spark(p){if(!p||p.length<2)return'';const c=p.map(x=>x[1]),mn=Math.min(
  return `<svg class="spk" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><polyline points="${pts}" fill="none" stroke="${c.at(-1)>=c[0]?'#4ade80':'#f87171'}" stroke-width="1.3"/></svg>`;}
 const COLS=[['sym','Ticker'],['spk','3M'],['p','Price'],['d1','1D'],['m1','1M'],['ytd','YTD'],['rsi',term('RSI')],['v50','vs '+term('Moving average','50D')],['v200','vs 200D'],['hi','From '+term('52-week high','52w hi')],['lo','From 52w lo'],['vol',term('Volatility','Vol')],['mdd',term('Max drawdown','Max DD')],['beta',term('Beta')],['score',term('Technical signal','Signal')]];
 async function render(el,S){
- if(el._ch)el._ch.forEach(c=>c.destroy());el._ch=[];
+ if(el._ch)el._ch.forEach(c=>c.destroy());el._ch=[];if(el._g3){el._g3.destroy();el._g3=null;}
  const live=S.kind==='current';
  el.innerHTML=`<section class="ax" data-sec="ax"><div class="card s12"><h2 data-info="ax">AI stock analyzer · QYLD holdings <span class="badge">Technical signal, not advice</span></h2><div class="axbody"><div class="axload">Loading 101 stocks…</div></div></div></section>`;
  let A,M;try{[A,M]=await Promise.all([axGet('analyzer'),axGet('meta').catch(()=>null)]);}catch(e){el.querySelector('.axbody').innerHTML='<div class="axload">Couldn’t load stock data.</div>';return;}
@@ -37,6 +37,12 @@ async function render(el,S){
   <div class="axk axbw" data-best></div><div class="axk axbw" data-worst></div>${es}<div class="axk axas"><span>Prices</span><b>${asof}</b></div></div>
  <div class="axbar2"><div class="pills" data-tf>${TF.map(t=>`<button data-v="${t[0]}">${t[0]}</button>`).join('')}</div><div class="pills" data-grp><button data-v="sec">Sector</button><button data-v="ai">AI exposure</button></div><span class="cap axlg">Size = QYLD weight · colour = % change · <span class="axsc"><i style="background:${heat(-1,1)}"></i><i style="background:${heat(0,1)}"></i><i style="background:${heat(1,1)}"></i></span></span></div>
  <div class="axtm" data-tm></div><div class="axtip" hidden></div>
+ <div class="g3"><h2 data-info="ax3" class="g3h">Correlation network · 3D <span class="ed" style="margin:0">drag to rotate · scroll or pinch to zoom · tap a node</span></h2>
+ <div class="g3w"><div class="g3v" data-g3><div class="axload">Loading 3D view…</div></div><div class="g3s" data-g3s>
+ <label class="g3k"><span>Link if correlation ≥ <b data-thrv>0.60</b></span><input type="range" min="40" max="90" step="5" value="60" data-thr aria-label="Correlation threshold"></label>
+ <div class="g3k"><span>Pair correlations · 1Y</span><div class="g3hist" data-hist></div><div class="g3ax"><em>−0.2</em><em>0</em><em>0.5</em><em>1</em></div></div>
+ <div class="g3k g3c"><span>Clusters · size</span><div data-cl></div><small class="cap" data-ne></small></div></div></div>
+ <p class="cap">Each node is a stock, sized by QYLD weight and coloured by % change for the range above. Labels are tinted by group. Lines link stocks whose daily moves have a correlation at or above the threshold; brighter lines mean a stronger correlation. A cluster is a group of stocks connected by those lines.</p></div>
  <div class="axdet" data-det hidden></div>
  <div class="axbar2"><div class="pills" data-tag>${[['all','All'],...Object.entries(TAGN)].map(([k,v])=>`<button data-v="${k}">${v}</button>`).join('')}</div><input class="axq" type="search" placeholder="Filter ticker / name / sector" aria-label="Filter stocks" value="${esc(st.q)}"></div>
  <div class="tw axtw"><table class="axt"><thead><tr>${COLS.map(([k,l])=>`<th data-k="${k}">${l}</th>`).join('')}</tr></thead><tbody></tbody></table></div>
@@ -77,7 +83,11 @@ async function render(el,S){
    options:{animation:false,interaction:{mode:'index',intersect:false},scales:{x:Object.assign({},x,{ticks:{display:false}}),y:{position:'right',grid:{color:'#1b212c'}},v:{display:false,min:0,max:vmax*1000*5}},plugins:{legend:{display:true,position:'top',align:'start',labels:{boxWidth:10,boxHeight:2,filter:i=>i.text!=='Volume'}},tooltip:{callbacks:{label:t=>t.dataset.label+': '+(t.dataset.label==='Volume'?(t.raw/1e6).toFixed(1)+'M':t.raw==null?'—':t.raw.toFixed(2))}}}}}));
   el._ch.push(new Chart(d.querySelector('.axrc canvas'),{type:'line',data:{labels:lb,datasets:[{label:'RSI(14)',data:sl(rs).map(v=>v==null?null:+v.toFixed(1)),borderColor:'#c4b5fd',borderWidth:1.3,pointRadius:0},{data:lb.map(()=>70),borderColor:'#f8717188',borderDash:[3,3],borderWidth:1,pointRadius:0},{data:lb.map(()=>30),borderColor:'#4ade8088',borderDash:[3,3],borderWidth:1,pointRadius:0}]},
    options:{animation:false,interaction:{mode:'index',intersect:false},scales:{x,y:{position:'right',min:0,max:100,ticks:{autoSkip:false},afterBuildTicks:a=>{a.ticks=[{value:30},{value:70}];},grid:{color:'#1b212c'}}},plugins:{legend:{display:true,position:'top',align:'start',labels:{boxWidth:10,boxHeight:2,filter:i=>i.datasetIndex===0}},tooltip:{filter:t=>t.datasetIndex===0}}}}));}
- function all(){pills();bw();treemap();rows();}
+ function all(){pills();bw();treemap();rows();if(el._g3)el._g3.update();}
+ const g3el=body.querySelector('.g3');const g3io=new IntersectionObserver(async es=>{if(!es.some(e=>e.isIntersecting))return;g3io.disconnect();
+  try{const [m,C]=await Promise.all([import('./analyzer3d.js'),axGet('ax_corr').catch(()=>null)]);if(!g3el.isConnected)return;
+   el._g3=await m.mount(g3el,{A,R,C:C&&C.snap[key]?Object.assign({syms:C.syms},C.snap[key]):null,g,st,heat,tfv,f,cls,esc,open:(s,keep)=>{detail(s);body.querySelector('[data-det]').scrollIntoView({block:'nearest',behavior:'smooth'});}});
+   if(el._g3&&st.sel)el._g3.focus(st.sel);}catch(e){console.warn('3D view',e);g3el.querySelector('[data-g3]').innerHTML='<div class="axload">3D view unavailable</div>';}},{rootMargin:'400px 0px'});g3io.observe(g3el);
  body.querySelector('[data-tf]').onclick=e=>{const b=e.target.closest('button');if(b){st.tf=b.dataset.v;all();}};
  body.querySelector('[data-grp]').onclick=e=>{const b=e.target.closest('button');if(b){st.grp=b.dataset.v;all();}};
  body.querySelector('[data-tag]').onclick=e=>{const b=e.target.closest('button');if(b){st.tag=b.dataset.v;all();}};

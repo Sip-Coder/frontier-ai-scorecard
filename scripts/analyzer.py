@@ -95,6 +95,8 @@ def main():
          "sector":{s:sec.get(s,["Other",""]) for s in syms},"ai":{s:TAG.get(s,"non") for s in syms},
          "missing":[s for s in syms if not R.get(s)],"snap":snaps}
     json.dump(out,open(os.path.join(ROOT,"analyzer.json"),"w"),separators=(",",":"))
+    try: corr(R,syms,list(snaps))
+    except Exception as e: print("corr fail (kept previous ax_corr.json)",e,file=sys.stderr)
     ser={}
     for s,rows in R.items():
         if not rows: continue
@@ -103,4 +105,29 @@ def main():
         ser[s]=a
     json.dump(ser,open(os.path.join(ROOT,"ax_series.json"),"w"),separators=(",",":"))
     print("analyzer:",len(snaps["live"]),"stocks live,",len(snaps)-1,"weekly snapshots; missing",out["missing"])
+def corr(R,syms,keys):
+    """1-year daily-return correlations per snapshot -> ax_corr.json: edges >=0.4 (top 12 per node) + histogram of all pairs."""
+    import numpy as np
+    days=sorted({x[0]//86400 for s in syms if R.get(s) for x in R[s]}); di={d:i for i,d in enumerate(days)}
+    P=np.full((len(syms),len(days)),np.nan)
+    for a,s in enumerate(syms):
+        for t,c,v in R.get(s) or []: P[a,di[t//86400]]=c
+    out={"syms":syms,"snap":{}}
+    for k in keys:
+        end=len(days) if k=="live" else sum(1 for d in days if d*86400<=dt.datetime.fromisoformat(k+"T23:59:59+00:00").timestamp())
+        W=P[:,max(0,end-253):end]; r=W[:,1:]/W[:,:-1]-1
+        ok=~np.isnan(r); n=ok.sum(1)
+        if end<60: continue
+        rf=np.where(ok,r,0); m=rf.sum(1)/np.maximum(n,1); z=np.where(ok,r-m[:,None],0); sd=np.sqrt((z*z).sum(1)/np.maximum(n,1))
+        both=ok.astype(float)@ok.T.astype(float); C=(z@z.T)/np.maximum(both,1)/np.outer(sd,sd)
+        C[both<60]=np.nan; np.fill_diagonal(C,np.nan)
+        iu=np.triu_indices(len(syms),1); allc=C[iu]; allc=allc[~np.isnan(allc)]
+        hist=np.histogram(allc,bins=np.linspace(-0.2,1,13))[0].tolist()
+        keep=set()
+        for a in range(len(syms)):
+            row=np.nan_to_num(C[a],nan=-9); top=np.argsort(-row)[:12]
+            keep|={(min(a,b),max(a,b)) for b in top if row[b]>=0.4}
+        out["snap"][k]={"e":[v for a,b in sorted(keep) for v in (int(a),int(b),int(round(C[a,b]*100)))],"h":hist}
+    fn=os.path.join(ROOT,"ax_corr.json"); json.dump(out,open(fn+".tmp","w"),separators=(",",":")); os.replace(fn+".tmp",fn)
+    print("corr:",len(out["snap"]),"snapshots, live edges",len(out["snap"]["live"]["e"])//3)
 if __name__=="__main__": main()
