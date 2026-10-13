@@ -90,5 +90,8 @@ def main():
         enc={sym:[v for i,(t,c) in enumerate(p) for v in ((t-p[i-1][0]) if i else t,c)] for sym,p in hdata[k].items()}  # flat delta-time encoding
         json.dump(enc,open(os.path.join(OUT,"h_"+k+".json"),"w"),separators=(",",":"))  # loaded only when a holding is switched on
     json.dump(meta,open(os.path.join(OUT,"meta.json"),"w"),separators=(",",":"))
+    try:
+        sys.path.insert(0,os.path.dirname(os.path.abspath(__file__))); import analyzer; analyzer.main()
+    except Exception as e: print("analyzer fail",e,file=sys.stderr)
     print(len(meta["tickers"]),"tickers,",len(meta["holdings"]),"holdings; missing:",meta["missing"])
 if __name__=="__main__": main()
