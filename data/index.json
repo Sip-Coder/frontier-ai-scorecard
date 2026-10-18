@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "current": "2026-10-12",
+ "current": "2026-10-18",
  "cadence": "weekly (Sundays) + editions",
  "snapshots": [
   {
@@ -264,6 +264,12 @@
   {
    "date": "2026-10-12",
    "file": "2026-10-12",
+   "kind": "edition",
+   "tag": "edition"
+  },
+  {
+   "date": "2026-10-18",
+   "file": "2026-10-18",
    "kind": "current",
    "tag": "current"
   }

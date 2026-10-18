@@ -17,7 +17,7 @@ def yahoo(sym, rng, iv):
     for i in range(3):
         try:
             r=json.load(urllib.request.urlopen(urllib.request.Request(u,headers={"User-Agent":"Mozilla/5.0"}),timeout=20))["chart"]["result"][0]
-            q=r["indicators"]["quote"][0]["close"]; pts=[[t,round(c,4)] for t,c in zip(r.get("timestamp",[]),q) if c is not None]
+            q=r["indicators"]["quote"][0].get("close") or []; pts=[[t,round(c,4)] for t,c in zip(r.get("timestamp",[]),q) if c is not None]
             return r["meta"], pts
         except Exception as e: err=e; time.sleep(2)
     raise err
